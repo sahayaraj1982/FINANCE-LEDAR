@@ -14,7 +14,7 @@ header{background:var(--theme-gradient);color:#111;text-align:center;padding:18p
 .g-led.connected{color:#00ff00;border-color:#00ff00;box-shadow:0 0 15px #00ff00,inset 0 0 5px #00ff00,0 0 5px #fff}
 .dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
 .stat-box{background:#222;padding:15px 10px;border-radius:10px;text-align:center;border:1px solid #333}
-.stat-box.red-border{border:2px solid #e53935}.stat-box.blue-border{border:2px solid #1e88e5}.stat-box.guarantee-border{border:2px solid #ffd700}
+.stat-box.red-border{border:2px solid #e53935}.stat-box.blue-border{border:2px solid #1e88e5}.stat-box.security-border{border:2px solid #ffd700}
 .stat-box small{color:#aaa;font-size:calc(var(--app-font-size) - 3px);text-transform:uppercase;font-weight:bold;display:block;margin-bottom:5px}
 .stat-box h2{margin:0;font-size:calc(var(--app-font-size) + 4px);color:var(--theme-color);font-weight:900}
 .date-filter-box{background:#1a1a1a;border:1px solid #333;padding:10px;margin:0 10px 10px;border-radius:10px;display:flex;gap:8px;align-items:center;justify-content:space-between}
@@ -26,10 +26,10 @@ header{background:var(--theme-gradient);color:#111;text-align:center;padding:18p
 .user-card{width:calc(100% - 20px);margin:10px auto;padding:15px;border-radius:15px;background:#222;cursor:pointer;border:1px solid #333;box-sizing:border-box;position:relative}
 .user-card.redbg{background:linear-gradient(145deg,#8b0000,#5a0000)!important;border-color:#ff4444!important}
 .user-card.bluebg{background:linear-gradient(145deg,#0d3b66,#0b2545)!important;border-color:#1e88e5!important}
-.user-card.guaranteebg{background:linear-gradient(145deg,#665000,#302500)!important;border-color:var(--theme-color)!important}
+.user-card.securitybg{background:linear-gradient(145deg,#665000,#302500)!important;border-color:var(--theme-color)!important}
 .row{display:flex;justify-content:space-between;align-items:center;font-size:var(--app-font-size);padding-right:35px}
 .user-meta{margin-top:7px;font-size:calc(var(--app-font-size) - 3px);color:#ddd}
-.user-meta span{display:inline-block;margin-right:12px}.guarantee-label{color:var(--theme-color);font-weight:bold}
+.user-meta span{display:inline-block;margin-right:12px}.security-label{color:var(--theme-color);font-weight:bold}
 .menu-dot-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;color:var(--theme-color);font-size:24px;border:none;padding:5px;cursor:pointer;z-index:10}
 .user-card.bluebg .menu-dot-btn{color:#42a5f5!important}
 .profile-header{background:#222;padding:15px 20px;border-bottom:2px solid var(--theme-color);margin-bottom:5px;position:relative}
@@ -37,7 +37,7 @@ header{background:var(--theme-gradient);color:#111;text-align:center;padding:18p
 .prof-header-buttons{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:10px}
 .prof-details-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
 #profMobile{margin:0;font-size:var(--app-font-size);color:var(--theme-color);font-weight:bold}#profBalance{margin:0;font-size:calc(var(--app-font-size) + 4px);color:#fff;font-weight:900}
-#profGuarantee{margin:7px 0 0;text-align:center;color:#ffd700;font-weight:bold}
+#profSecurity{margin:7px 0 0;text-align:center;color:#ffd700;font-weight:bold}
 .table-container{overflow-x:auto;padding:10px}table{width:100%;border-collapse:collapse;background:#1a1a1a;border-radius:10px}
 th,td{padding:10px 4px;text-align:center;border-bottom:1px solid #444;font-size:calc(var(--app-font-size) - 2px);font-weight:var(--app-font-weight)}
 th{background:#333;color:var(--theme-color);font-weight:bold}.credit-row{background:#1f7a1f!important;color:#fff!important}.debit-row{background:#b91c1c!important;color:#fff!important}.pending-row{background:#2c2c2c;color:var(--theme-color)}
@@ -49,13 +49,12 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:translateX(22px)}
 .color-presets{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px;background:#1a1a1a;padding:10px;border-radius:12px;border:1px solid #333}
 .color-dot{width:100%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.4);cursor:pointer;transition:.2s;box-sizing:border-box}
-.guarantee-manager{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:10px;margin-top:8px}.cat-setting-item{display:flex;align-items:center;gap:6px;margin:7px 0;padding:7px;background:#222;border-radius:8px}.cat-setting-item .cat-name{flex:1;color:#ffd700;font-weight:bold;text-align:left}.mini-btn{border:0;border-radius:6px;padding:6px 8px;cursor:pointer;font-weight:bold}.cat-on{background:#1f7a1f;color:#fff}.cat-off{background:#555;color:#aaa}.cat-edit{background:#ffd700;color:#111}.cat-del{background:#e53935;color:#fff}
-.guarantee-summary-dashboard{padding-top:5px}.guarantee-list-item{width:calc(100% - 20px);margin:10px auto;padding:15px;border-radius:15px;background:linear-gradient(145deg,#665000,#302500);border:2px solid var(--theme-color);cursor:pointer;box-sizing:border-box}
-.guarantee-list-item .cat-row{display:flex;justify-content:space-between;align-items:center}.guarantee-list-item b{color:#ffd700}.guarantee-list-item small{color:#ddd}
-.guarantee-header{padding:15px;background:#222;border-bottom:2px solid var(--theme-color);display:flex;justify-content:space-between;align-items:center}
+.security-manager{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:10px;margin-top:8px}.cat-setting-item{display:flex;align-items:center;gap:6px;margin:7px 0;padding:7px;background:#222;border-radius:8px}.cat-setting-item .cat-name{flex:1;color:#ffd700;font-weight:bold;text-align:left}.mini-btn{border:0;border-radius:6px;padding:6px 8px;cursor:pointer;font-weight:bold}.cat-on{background:#1f7a1f;color:#fff}.cat-off{background:#555;color:#aaa}.cat-edit{background:#ffd700;color:#111}.cat-del{background:#e53935;color:#fff}
+.security-summary-dashboard{padding-top:5px}.security-list-item{width:calc(100% - 20px);margin:10px auto;padding:15px;border-radius:15px;background:linear-gradient(145deg,#665000,#302500);border:2px solid var(--theme-color);cursor:pointer;box-sizing:border-box}
+.security-list-item .cat-row{display:flex;justify-content:space-between;align-items:center}.security-list-item b{color:#ffd700}.security-list-item small{color:#ddd}
+.security-header{padding:15px;background:#222;border-bottom:2px solid var(--theme-color);display:flex;justify-content:space-between;align-items:center}
 #loading{display:none;position:fixed;top:10px;right:10px;background:var(--theme-color);color:#111;padding:8px 15px;border-radius:20px;font-weight:bold;z-index:10000;font-size:13px}
 </style>
-<style id="guarantee-color-priority">.user-card.redbg{background:linear-gradient(135deg,#5b0000,#d40000)!important;color:#fff!important;border-color:#ff4b4b!important}.user-card.bluebg{background:linear-gradient(135deg,#002b66,#0878ff)!important;color:#fff!important;border-color:#42a5ff!important}.user-card.guaranteebg{background:linear-gradient(135deg,#5a4300,#d4a72c)!important;color:#fff!important}</style>
 </head>
 <body>
 <div id="loading">SAVE...</div>
@@ -73,34 +72,34 @@ input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:
 <div class="date-filter-box" id="dateFilterWrapper"><div style="flex:1"><small style="color:#aaa;font-size:11px;font-weight:bold;display:block">FROM</small><input type="date" id="filterStartDate" onchange="renderUsers()"></div><div style="flex:1"><small style="color:#aaa;font-size:11px;font-weight:bold;display:block">TO</small><input type="date" id="filterEndDate" onchange="renderUsers()"></div></div>
 <div class="dashboard" id="dateDashboardWrapper"><div class="stat-box blue-border"><small style="color:#42a5f5">Total Credit (Date)</small><h2 id="dateTotalCredit" style="font-size:calc(var(--app-font-size) + 2px)">0</h2></div><div class="stat-box blue-border"><small style="color:#42a5f5">Total Debit (Date)</small><h2 id="dateTotalDebit" style="font-size:calc(var(--app-font-size) + 2px)">0</h2></div></div>
 <div class="top-buttons">
-<button class="gold" onclick="addUser()">+ User</button><button class="gold" onclick="fetchFromCloud()">🔄 Reset</button><button class="gold" onclick="exportData()">Export</button><button class="gold" onclick="document.getElementById('importFile').click()">Import</button><button class="gold" onclick="openGuaranteeScreen()">GUARANTEE</button><button style="background:#444;color:white" onclick="openSettingsPopup()">⚙️ Set</button>
+<button class="gold" onclick="addUser()">+ User</button><button class="gold" onclick="fetchFromCloud()">🔄 Reset</button><button class="gold" onclick="exportData()">Export</button><button class="gold" onclick="document.getElementById('importFile').click()">Import</button><button class="gold" onclick="openSecurityScreen()">SECURITY</button><button style="background:#444;color:white" onclick="openSettingsPopup()">⚙️ Set</button>
 <input type="file" id="importFile" hidden onchange="importData(event)">
 </div>
 <div id="userList"></div>
 </div>
 
-<div id="guaranteeScreen" class="hidden">
-<div class="guarantee-header"><button class="gold" onclick="closeGuaranteeScreen()" style="padding:6px 12px">← Back</button><b style="color:var(--theme-color);font-size:18px">GUARANTEE</b><span style="width:55px"></span></div>
-<div class="dashboard guarantee-summary-dashboard">
-<div class="stat-box"><small>Total Users</small><h2 id="guaranteeListTotalUsers">0</h2></div>
-<div class="stat-box"><small>Total Balance</small><h2 id="guaranteeListTotalBalance">₹ 0</h2></div>
+<div id="securityScreen" class="hidden">
+<div class="security-header"><button class="gold" onclick="closeSecurityScreen()" style="padding:6px 12px">← Back</button><b style="color:var(--theme-color);font-size:18px">SECURITY</b><span style="width:55px"></span></div>
+<div class="dashboard security-summary-dashboard">
+<div class="stat-box"><small>Total Users</small><h2 id="securityListTotalUsers">0</h2></div>
+<div class="stat-box"><small>Total Balance</small><h2 id="securityListTotalBalance">₹ 0</h2></div>
 </div>
-<div id="guaranteeList"></div>
+<div id="securityList"></div>
 </div>
 
-<div id="guaranteeUsersScreen" class="hidden">
-<div class="guarantee-header"><button class="gold" onclick="backToGuaranteeList()" style="padding:6px 12px">← Back</button><b id="selectedGuaranteeTitle" style="color:var(--theme-color);font-size:18px"></b><span style="width:55px"></span></div>
+<div id="securityUsersScreen" class="hidden">
+<div class="security-header"><button class="gold" onclick="backToSecurityList()" style="padding:6px 12px">← Back</button><b id="selectedSecurityTitle" style="color:var(--theme-color);font-size:18px"></b><span style="width:55px"></span></div>
 <div class="dashboard" style="margin-top:10px">
-<div class="stat-box"><small>Total Users</small><h2 id="guaranteeTotalUsers">0</h2></div>
-<div class="stat-box"><small>Total Balance</small><h2 id="guaranteeTotalBalance">₹ 0</h2></div>
-<div class="stat-box"><small>Total Credit</small><h2 id="guaranteeTotalCredit">₹ 0</h2></div>
-<div class="stat-box"><small>Total Debit</small><h2 id="guaranteeTotalDebit">₹ 0</h2></div>
+<div class="stat-box"><small>Total Users</small><h2 id="securityTotalUsers">0</h2></div>
+<div class="stat-box"><small>Total Balance</small><h2 id="securityTotalBalance">₹ 0</h2></div>
+<div class="stat-box"><small>Total Credit</small><h2 id="securityTotalCredit">₹ 0</h2></div>
+<div class="stat-box"><small>Total Debit</small><h2 id="securityTotalDebit">₹ 0</h2></div>
 </div>
-<div id="guaranteeUserList"></div>
+<div id="securityUserList"></div>
 </div>
 
 <div id="userScreen" class="hidden">
-<div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="goBack()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openEntryForm()" style="padding:6px 12px">+ Entry</button></div><h2 id="profName"></h2><div class="prof-details-row"><p id="profMobile"></p><h3 id="profBalance"></h3></div><div id="profGuarantee"></div></div>
+<div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="goBack()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openEntryForm()" style="padding:6px 12px">+ Entry</button></div><h2 id="profName"></h2><div class="prof-details-row"><p id="profMobile"></p><h3 id="profBalance"></h3></div><div id="profSecurity"></div></div>
 <div class="table-container"><table><thead><tr><th>Date</th><th>Desc</th><th>Cr</th><th>Db</th><th>Bal</th></tr></thead><tbody id="transactionTable"></tbody></table></div>
 </div>
 </div>
@@ -121,9 +120,9 @@ input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:
 <div class="setting-row"><span>தேதி ஃபில்டர் & டெபிட்/கிரெடிட் பாக்ஸ் காட்டு</span><label class="switch"><input type="checkbox" id="switchDateFilter" checked onchange="applySettings()"><span class="slider"></span></label></div>
 <div class="setting-row"><span>சிவப்பு யூசர் ஹைலைட் & சாட்டிங்</span><label class="switch"><input type="checkbox" id="switchRedHighlight" onchange="applySettings()"><span class="slider"></span></label></div>
 <div class="setting-row"><span>நீல யூசர் ஹைலைட் & சாட்டிங்</span><label class="switch"><input type="checkbox" id="switchBlueHighlight" onchange="applySettings()"><span class="slider"></span></label></div>
-<div class="setting-row"><span>Guarantee வசதி காட்டு</span><label class="switch"><input type="checkbox" id="switchGuarantee" checked onchange="applySettings()"><span class="slider"></span></label></div>
+<div class="setting-row"><span>Security வசதி காட்டு</span><label class="switch"><input type="checkbox" id="switchSecurity" checked onchange="applySettings()"><span class="slider"></span></label></div>
 
-<div style="text-align:left;margin-top:18px"><label style="font-size:14px;color:#aaa">Guarantee பெயர்கள் (Add / Edit / Delete / ON-OFF)</label><div class="guarantee-manager"><div style="display:flex;gap:6px"><input type="text" id="newGuaranteeName" placeholder="புதிய Guarantee பெயர்" style="margin:0;flex:1"><button class="gold mini-btn" onclick="addGuarantee()">+ Add</button></div><div id="guaranteeSettingsList"></div></div></div>
+<div style="text-align:left;margin-top:18px"><label style="font-size:14px;color:#aaa">Security பெயர்கள் (Add / Edit / Delete / ON-OFF)</label><div class="security-manager"><div style="display:flex;gap:6px"><input type="text" id="newSecurityName" placeholder="புதிய Security பெயர்" style="margin:0;flex:1"><button class="gold mini-btn" onclick="addSecurity()">+ Add</button></div><div id="securitySettingsList"></div></div></div>
 
 <div class="setting-row"><span>Google Sheet ஒத்திசைவு (Cloud Sync)</span><label class="switch"><input type="checkbox" id="switchCloud" checked onchange="applySettings()"><span class="slider"></span></label></div>
 <div style="margin:15px 0"><button class="gold" style="width:100%;padding:10px;font-weight:bold;border:none;border-radius:8px" onclick="copyGoogleScriptCode()">📋 Google Script காப்பி செய்</button></div>
@@ -132,55 +131,55 @@ input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:
 </div></div>
 
 <div id="entryPopup" class="popup-overlay"><div class="popup-content"><h3 style="color:var(--theme-color);margin-top:0">New Entry</h3><input type="date" id="tDate"><input type="text" id="tDesc" placeholder="Description"><input type="number" id="tCredit" placeholder="Credit"><input type="number" id="tDebit" placeholder="Debit"><div style="display:flex;gap:10px;margin-top:10px"><button class="gold" onclick="saveTransaction()" style="flex:1">Save</button><button style="background:#555;color:white;flex:1" onclick="closeEntryForm()">Close</button></div></div></div>
-<div id="actionPopup" class="popup-overlay" onclick="closeActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="popupTitle" style="color:var(--theme-color);margin-top:0">Manage User</h3><div style="text-align:left;margin:0 0 12px"><label style="font-size:13px;color:#aaa;font-weight:bold">GUARANTEE</label><select id="editGuaranteeSelect" style="margin:6px 0 0;width:100%"></select></div><button class="gold" id="editBtn" style="width:100%;padding:12px;font-weight:bold;border:none;border-radius:10px">✏️ Edit User</button><button style="background:#e53935;color:white;width:100%;margin-top:10px;padding:12px;font-weight:bold;border:none;border-radius:10px" id="deleteBtn">🗑️ Delete User</button><button style="background:#555;color:white;width:100%;margin-top:10px;padding:12px;border:none;border-radius:10px" onclick="closeActionPopup()">Cancel</button></div></div>
+<div id="actionPopup" class="popup-overlay" onclick="closeActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="popupTitle" style="color:var(--theme-color);margin-top:0">Manage User</h3><div style="text-align:left;margin:0 0 12px"><label style="font-size:13px;color:#aaa;font-weight:bold">SECURITY</label><select id="editSecuritySelect" style="margin:6px 0 0;width:100%"></select></div><button class="gold" id="editBtn" style="width:100%;padding:12px;font-weight:bold;border:none;border-radius:10px">✏️ Edit User</button><button style="background:#e53935;color:white;width:100%;margin-top:10px;padding:12px;font-weight:bold;border:none;border-radius:10px" id="deleteBtn">🗑️ Delete User</button><button style="background:#555;color:white;width:100%;margin-top:10px;padding:12px;border:none;border-radius:10px" onclick="closeActionPopup()">Cancel</button></div></div>
 <div id="txActionPopup" class="popup-overlay" onclick="closeTxActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">டிரான்ஸாக்ஷன் மேலாண்மை</h3><button class="gold" id="txEditBtn" style="width:100%">✏️ Edit Entry</button><button style="background:#e53935;color:white;width:100%;margin-top:10px" id="txDeleteBtn">🗑️ Delete Entry</button><button style="background:#555;color:white;width:100%;margin-top:10px" onclick="closeTxActionPopup()">Cancel</button></div></div>
 
 <script>
-const CLOUD_URL="https://script.google.com/macros/s/AKfycbxOB1yIak8ckaXh1gukhEVIUkcw9q1qidJVYGnm2i4TXsv5HdlvLUz4V_ekK3KIL0-f/exec";
+const CLOUD_URL="https://script.google.com/macros/s/AKfycbwGmP7euoPNkl6Foa1nQzvVKcQxz_IEnZhPBPMonjQQ2_SzB2R_oVToSU91QdjaIUiy/exec";
 let users=JSON.parse(localStorage.getItem("financeUsersData"))||[];
-// Preserve existing Guarantee assignments.
-let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,showGuarantee:true,guarantees:[{name:"FINANCE",enabled:true},{name:"TICKET",enabled:true},{name:"RO",enabled:true},{name:"OTHER",enabled:true}]};
+// Preserve existing Security assignments.
+let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,showSecurity:true,securitys:[{name:"FINANCE",enabled:true},{name:"TICKET",enabled:true},{name:"RO",enabled:true},{name:"OTHER",enabled:true}]};
 
-// Migrate the previous Category configuration to Guarantee without losing settings.
-if(!Array.isArray(appConfig.guarantees)){
+// Migrate the previous Category configuration to Security without losing settings.
+if(!Array.isArray(appConfig.securitys)){
   if(Array.isArray(appConfig.categories)){
-    appConfig.guarantees=appConfig.categories.map(c=>typeof c==="string"?{name:c,enabled:true}:{name:c.name||"",enabled:c.enabled!==false});
+    appConfig.securitys=appConfig.categories.map(c=>typeof c==="string"?{name:c,enabled:true}:{name:c.name||"",enabled:c.enabled!==false});
   }else{
-    appConfig.guarantees=[{name:"FINANCE",enabled:true},{name:"TICKET",enabled:true},{name:"RO",enabled:true},{name:"OTHER",enabled:true}];
+    appConfig.securitys=[{name:"FINANCE",enabled:true},{name:"TICKET",enabled:true},{name:"RO",enabled:true},{name:"OTHER",enabled:true}];
   }
 }
-appConfig.guarantees=appConfig.guarantees.map(c=>typeof c==="string"?{name:c,enabled:true}:{name:c.name||"",enabled:c.enabled!==false});
-if(appConfig.showGuarantee===undefined) appConfig.showGuarantee=appConfig.showCategory!==false;
-users.forEach(u=>{if(u.guarantee===undefined)u.guarantee="";if(!Array.isArray(u.transactions))u.transactions=[]});
-let currentUser=null,editIndex=null,selectedGuarantee=null;
+appConfig.securitys=appConfig.securitys.map(c=>typeof c==="string"?{name:c,enabled:true}:{name:c.name||"",enabled:c.enabled!==false});
+if(appConfig.showSecurity===undefined) appConfig.showSecurity=appConfig.showCategory!==false;
+users.forEach(u=>{if(u.security===undefined)u.security="";if(!Array.isArray(u.transactions))u.transactions=[]});
+let currentUser=null,editIndex=null,selectedSecurity=null;
 
 function showLoading(x){document.getElementById("loading").style.display=x?"block":"none"}
 function localToday(){let d=new Date(),o=d.getTimezoneOffset();return new Date(d.getTime()-o*60000).toISOString().split("T")[0]}
 function initConfig(){
 document.getElementById("setAppTitle").value=appConfig.title;document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setThemeColor").value=appConfig.color;
-document.getElementById("switchDash").checked=appConfig.showDash;document.getElementById("switchSearch").checked=appConfig.showSearch;document.getElementById("switchDateFilter").checked=appConfig.showDateFilter!==false;document.getElementById("switchRedHighlight").checked=!!appConfig.showRedHighlight;document.getElementById("switchBlueHighlight").checked=!!appConfig.showBlueHighlight;document.getElementById("switchCloud").checked=appConfig.showCloud!==false;document.getElementById("switchGuarantee").checked=appConfig.showGuarantee!==false;
-if(!document.getElementById("filterStartDate").value)document.getElementById("filterStartDate").value=localToday();if(!document.getElementById("filterEndDate").value)document.getElementById("filterEndDate").value=localToday();applyConfigUI();renderGuaranteeSettings()
+document.getElementById("switchDash").checked=appConfig.showDash;document.getElementById("switchSearch").checked=appConfig.showSearch;document.getElementById("switchDateFilter").checked=appConfig.showDateFilter!==false;document.getElementById("switchRedHighlight").checked=!!appConfig.showRedHighlight;document.getElementById("switchBlueHighlight").checked=!!appConfig.showBlueHighlight;document.getElementById("switchCloud").checked=appConfig.showCloud!==false;document.getElementById("switchSecurity").checked=appConfig.showSecurity!==false;
+if(!document.getElementById("filterStartDate").value)document.getElementById("filterStartDate").value=localToday();if(!document.getElementById("filterEndDate").value)document.getElementById("filterEndDate").value=localToday();applyConfigUI();renderSecuritySettings()
 }
 function setPresetColor(c){document.getElementById("setThemeColor").value=c;applySettings()}
 function applySettings(){
-appConfig.title=document.getElementById("setAppTitle").value||"Finance Manager Pro";appConfig.width=document.getElementById("setAppWidth").value;appConfig.height=document.getElementById("setAppHeight").value||100;appConfig.fontSize=document.getElementById("setAppFontSize").value||16;appConfig.fontWeight=document.getElementById("setAppFontWeight").value||"normal";appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showGuarantee=document.getElementById("switchGuarantee").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;
-localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderGuaranteeSettings();setTimeout(renderUsers,30)
+appConfig.title=document.getElementById("setAppTitle").value||"Finance Manager Pro";appConfig.width=document.getElementById("setAppWidth").value;appConfig.height=document.getElementById("setAppHeight").value||100;appConfig.fontSize=document.getElementById("setAppFontSize").value||16;appConfig.fontWeight=document.getElementById("setAppFontWeight").value||"normal";appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showSecurity=document.getElementById("switchSecurity").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;
+localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderSecuritySettings();setTimeout(renderUsers,30)
 }
 function applyConfigUI(){
 document.getElementById("headerTitleText").innerText=appConfig.title;document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height||100;document.getElementById("fontSizeVal").innerText=appConfig.fontSize||16;
 document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",(appConfig.height||100)+"vh");document.documentElement.style.setProperty("--app-font-size",(appConfig.fontSize||16)+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight||"normal");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);
 document.getElementById("dashboardWrapper").style.display=appConfig.showDash?"grid":"none";document.getElementById("searchBoxWrapper").style.display=appConfig.showSearch?"block":"none";document.getElementById("redDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";document.getElementById("tenPercentDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";
 let dv=appConfig.showDateFilter&&appConfig.showBlueHighlight;document.getElementById("dateFilterWrapper").style.display=dv?"flex":"none";document.getElementById("dateDashboardWrapper").style.display=dv?"grid":"none";
-document.querySelector('.top-buttons button:nth-child(5)').style.display=appConfig.showGuarantee!==false?"block":"none";document.getElementById("ledLight").style.display=appConfig.showCloud?"flex":"none"
+document.querySelector('.top-buttons button:nth-child(5)').style.display=appConfig.showSecurity!==false?"block":"none";document.getElementById("ledLight").style.display=appConfig.showCloud?"flex":"none"
 }
-function openSettingsPopup(){renderGuaranteeSettings();document.getElementById("settingsPopup").style.display="flex"}function closeSettingsPopup(){document.getElementById("settingsPopup").style.display="none"}
+function openSettingsPopup(){renderSecuritySettings();document.getElementById("settingsPopup").style.display="flex"}function closeSettingsPopup(){document.getElementById("settingsPopup").style.display="none"}
 function saveDataLocally(){localStorage.setItem("financeUsersData",JSON.stringify(users));localStorage.setItem("financeConfig",JSON.stringify(appConfig))}
 async function saveToCloudOnly(){
   saveDataLocally();
   if(!appConfig.showCloud)return;
   showLoading(true);
   try{
-    const payload={users:users,guarantees:appConfig.guarantees||[]};
+    const payload={users:users,securitys:appConfig.securitys||[]};
     await fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},body:"data="+encodeURIComponent(JSON.stringify(payload))});
     document.getElementById("ledLight").classList.add("connected");
   }catch(e){
@@ -196,12 +195,12 @@ async function fetchFromCloud(){
     const r=await fetch(CLOUD_URL+"?t="+Date.now(),{method:"GET",cache:"no-store"});
     if(!r.ok)throw new Error("Google Sheet connection failed: "+r.status);
     const d=await r.json();
-    let cloudUsers=null, cloudGuarantees=null;
+    let cloudUsers=null, cloudSecuritys=null;
     if(Array.isArray(d)){
       cloudUsers=d;
     }else if(d&&Array.isArray(d.users)){
       cloudUsers=d.users;
-      if(Array.isArray(d.guarantees))cloudGuarantees=d.guarantees;else if(Array.isArray(d.securitys))cloudGuarantees=d.securitys;
+      if(Array.isArray(d.securitys))cloudSecuritys=d.securitys;
     }
     if(!Array.isArray(cloudUsers))throw new Error("Invalid Google Sheet data");
 
@@ -217,21 +216,21 @@ async function fetchFromCloud(){
 
     users=cloudUsers.map(u=>{
       u=u||{};
-      // Keep Guarantee; migrate old Category data only when Guarantee is absent.
-      if(u.guarantee===undefined||u.guarantee===null||u.guarantee==="")u.guarantee=u.security||u.leader||u.category||"";
+      // Keep Security; migrate old Category data only when Security is absent.
+      if(u.security===undefined)u.security=u.category||"";
       delete u.category;
       if(!Array.isArray(u.transactions))u.transactions=[];
       u.transactions=u.transactions.map(t=>t||{});
       return u;
     });
 
-    if(Array.isArray(cloudGuarantees)){
-      appConfig.guarantees=cloudGuarantees.map(x=>typeof x==="string"?{name:x,enabled:true}:{name:x.name||"",enabled:x.enabled!==false});
+    if(Array.isArray(cloudSecuritys)){
+      appConfig.securitys=cloudSecuritys.map(x=>typeof x==="string"?{name:x,enabled:true}:{name:x.name||"",enabled:x.enabled!==false});
     }
     saveDataLocally();
     localStorage.setItem("financeConfig",JSON.stringify(appConfig));
     renderUsers();
-    renderGuaranteeSettings();
+    renderSecuritySettings();
     document.getElementById("ledLight").classList.add("connected");
   }catch(e){
     document.getElementById("ledLight").classList.remove("connected");
@@ -246,7 +245,7 @@ function getBalance(u){return(u.transactions||[]).reduce((a,t)=>a+Number(t.credi
 function isRed(u){let today=localToday();return(u.transactions||[]).some(t=>{let d=t.date?String(t.date).split("T")[0]:"";return d&&d<=today&&String(t.credit??"").trim()===""&&String(t.debit??"").trim()===""})}
 function getTenPercent(u){if(!isRed(u))return 0;let l=(u.transactions||[]).find(t=>Number(t.debit)>0);return l?Number(l.debit)*.1:0}
 function getDebitInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=t.date?String(t.date).split("T")[0]:"",v=Number(t.debit||0);return d&&s&&e&&d>=s&&d<=e&&v>0?sum+v:sum},0)}
-function guaranteeEnabled(n){let c=appConfig.guarantees.find(x=>x.name===n);return c?c.enabled:false}
+function securityEnabled(n){let c=appConfig.securitys.find(x=>x.name===n);return c?c.enabled:false}
 function renderUsers(){
 let search=(document.getElementById("userSearch").value||"").toLowerCase().trim(),list=document.getElementById("userList");list.innerHTML="";
 let total=0,red=0,ten=0,cr=0,db=0,s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value;
@@ -256,45 +255,45 @@ let f=users.filter(u=>(u.name||"").toLowerCase().includes(search)||(u.mobile||""
 f.sort((a,b)=>{if(appConfig.showRedHighlight&&isRed(a)!==isRed(b))return isRed(b)-isRed(a);if(appConfig.showBlueHighlight&&appConfig.showDateFilter){let aa=getDebitInDateRange(a,s,e),bb=getDebitInDateRange(b,s,e);if((aa>0)!==(bb>0))return(bb>0)-(aa>0);if(aa>0&&bb>0)return aa-bb}return Math.abs(getBalance(a))-Math.abs(getBalance(b))});
 f.forEach(u=>createUserCard(u,users.indexOf(u),list))
 }
-function createUserCard(u,idx,list,showGuaranteeColor=false){
-let bal=getBalance(u),red=appConfig.showRedHighlight&&isRed(u),da=getDebitInDateRange(u,document.getElementById("filterStartDate").value,document.getElementById("filterEndDate").value),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&da>0,card=document.createElement("div");card.className="user-card"+(red?" redbg":blue?" bluebg":(showGuaranteeColor&&u.guarantee?" guaranteebg":""));card.onclick=()=>openUser(idx);card.innerHTML=`<div class="row"><div><b>${escapeHtml(u.name||"")}</b><br><small style="font-size:13px">${escapeHtml(u.mobile||"")}</small><div class="user-meta"><span class="guarantee-label">Guarantee: ${escapeHtml(u.guarantee||"Uncategorized")}</span></div></div><div style="font-weight:bold">₹ ${bal.toLocaleString()}</div></div><button class="menu-dot-btn" onclick="triggerActionMenu(event,${idx})">&#8942;</button>`;list.appendChild(card)
+function createUserCard(u,idx,list,showSecurityColor=false){
+let bal=getBalance(u),red=appConfig.showRedHighlight&&isRed(u),da=getDebitInDateRange(u,document.getElementById("filterStartDate").value,document.getElementById("filterEndDate").value),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&da>0,card=document.createElement("div");card.className="user-card"+(red?" redbg":blue?" bluebg":(showSecurityColor&&u.security?" securitybg":""));card.onclick=()=>openUser(idx);card.innerHTML=`<div class="row"><div><b>${escapeHtml(u.name||"")}</b><br><small style="font-size:13px">${escapeHtml(u.mobile||"")}</small><div class="user-meta"><span class="security-label">Security: ${escapeHtml(u.security||"Uncategorized")}</span></div></div><div style="font-weight:bold">₹ ${bal.toLocaleString()}</div></div><button class="menu-dot-btn" onclick="triggerActionMenu(event,${idx})">&#8942;</button>`;list.appendChild(card)
 }
 function escapeHtml(x){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function triggerActionMenu(e,i){e.stopPropagation();openActionPopup(users[i].name,i)}
 function openActionPopup(n,i){
   document.getElementById("popupTitle").innerText=n;
-  let sel=document.getElementById("editGuaranteeSelect");
+  let sel=document.getElementById("editSecuritySelect");
   sel.innerHTML="";
-  let none=document.createElement("option");none.value="";none.textContent="— No Guarantee —";sel.appendChild(none);
-  appConfig.guarantees.filter(x=>x.enabled).forEach(l=>{
+  let none=document.createElement("option");none.value="";none.textContent="— No Security —";sel.appendChild(none);
+  appConfig.securitys.filter(x=>x.enabled).forEach(l=>{
     let o=document.createElement("option");o.value=l.name;o.textContent=l.name;sel.appendChild(o);
   });
-  sel.value=users[i].guarantee||"";
+  sel.value=users[i].security||"";
   document.getElementById("actionPopup").style.display="flex";
   document.getElementById("editBtn").onclick=()=>editUser(i);
   document.getElementById("deleteBtn").onclick=()=>deleteUser(i);
 }
 function closeActionPopup(){document.getElementById("actionPopup").style.display="none"}
 function openUser(i){currentUser=i;hideAllScreens();document.getElementById("userScreen").classList.remove("hidden");renderTransactions()}
-function hideAllScreens(){document.getElementById("mainScreen").classList.add("hidden");document.getElementById("guaranteeScreen").classList.add("hidden");document.getElementById("guaranteeUsersScreen").classList.add("hidden");document.getElementById("userScreen").classList.add("hidden")}
+function hideAllScreens(){document.getElementById("mainScreen").classList.add("hidden");document.getElementById("securityScreen").classList.add("hidden");document.getElementById("securityUsersScreen").classList.add("hidden");document.getElementById("userScreen").classList.add("hidden")}
 function goBack(){hideAllScreens();document.getElementById("mainScreen").classList.remove("hidden");renderUsers()}
 function openEntryForm(){document.getElementById("tDate").value=localToday();document.getElementById("tDesc").value="";document.getElementById("tCredit").value="";document.getElementById("tDebit").value="";editIndex=null;document.getElementById("entryPopup").style.display="flex"}
 function closeEntryForm(){document.getElementById("entryPopup").style.display="none";editIndex=null}
 async function saveTransaction(){let d=document.getElementById("tDate").value,desc=document.getElementById("tDesc").value,c=document.getElementById("tCredit").value,deb=document.getElementById("tDebit").value;if(!d)return alert("Date is required!");let tx={date:d,desc,credit:c,debit:deb};if(editIndex===null)users[currentUser].transactions.push(tx);else{users[currentUser].transactions[editIndex]=tx;editIndex=null}closeEntryForm();renderTransactions();await saveToCloudOnly()}
-function renderTransactions(){let u=users[currentUser];u.transactions.sort((a,b)=>new Date(a.date)-new Date(b.date));document.getElementById("profName").innerText=u.name;document.getElementById("profMobile").innerText=u.mobile||"No Mobile";document.getElementById("profBalance").innerText="Bal: ₹"+getBalance(u).toLocaleString();document.getElementById("profGuarantee").innerText="GUARANTEE: "+(u.guarantee||"No Guarantee");let body=document.getElementById("transactionTable");body.innerHTML="";let bal=0,arr=[];u.transactions.forEach((tx,i)=>{let note=String(tx.credit??"").trim()===""&&String(tx.debit??"").trim()==="";if(!note)bal+=Number(tx.credit||0)-Number(tx.debit||0);arr.push({...tx,cumulative:note?"":bal,actualIdx:i})});arr.reverse().forEach(tx=>{let r=document.createElement("tr");if(String(tx.credit??"").trim()!==""&&Number(tx.credit)>=0)r.className="credit-row";else if(String(tx.debit??"").trim()!==""&&Number(tx.debit)>=0)r.className="debit-row";else r.className="pending-row";r.innerHTML=`<td>${formatDate(tx.date)}</td><td>${escapeHtml(tx.desc||"")}</td><td>${tx.credit||""}</td><td>${tx.debit||""}</td><td><b>${tx.cumulative===""?"":"₹ "+tx.cumulative.toLocaleString()}</b></td>`;setupLongPress(r,()=>openTxActionPopup(tx.actualIdx));body.appendChild(r)})}
+function renderTransactions(){let u=users[currentUser];u.transactions.sort((a,b)=>new Date(a.date)-new Date(b.date));document.getElementById("profName").innerText=u.name;document.getElementById("profMobile").innerText=u.mobile||"No Mobile";document.getElementById("profBalance").innerText="Bal: ₹"+getBalance(u).toLocaleString();document.getElementById("profSecurity").innerText="SECURITY: "+(u.security||"No Security");let body=document.getElementById("transactionTable");body.innerHTML="";let bal=0,arr=[];u.transactions.forEach((tx,i)=>{let note=String(tx.credit??"").trim()===""&&String(tx.debit??"").trim()==="";if(!note)bal+=Number(tx.credit||0)-Number(tx.debit||0);arr.push({...tx,cumulative:note?"":bal,actualIdx:i})});arr.reverse().forEach(tx=>{let r=document.createElement("tr");if(String(tx.credit??"").trim()!==""&&Number(tx.credit)>=0)r.className="credit-row";else if(String(tx.debit??"").trim()!==""&&Number(tx.debit)>=0)r.className="debit-row";else r.className="pending-row";r.innerHTML=`<td>${formatDate(tx.date)}</td><td>${escapeHtml(tx.desc||"")}</td><td>${tx.credit||""}</td><td>${tx.debit||""}</td><td><b>${tx.cumulative===""?"":"₹ "+tx.cumulative.toLocaleString()}</b></td>`;setupLongPress(r,()=>openTxActionPopup(tx.actualIdx));body.appendChild(r)})}
 function setupLongPress(el,cb){let t;const s=()=>t=setTimeout(cb,800),c=()=>clearTimeout(t);el.addEventListener("mousedown",s);el.addEventListener("touchstart",s,{passive:true});["click","mouseout","touchend","touchcancel"].forEach(x=>el.addEventListener(x,c))}
 function openTxActionPopup(i){document.getElementById("txActionPopup").style.display="flex";document.getElementById("txEditBtn").onclick=()=>{closeTxActionPopup();editTransaction(i)};document.getElementById("txDeleteBtn").onclick=()=>{closeTxActionPopup();deleteTransaction(i)}}function closeTxActionPopup(){document.getElementById("txActionPopup").style.display="none"}
 function editTransaction(i){let t=users[currentUser].transactions[i];document.getElementById("tDate").value=String(t.date).split("T")[0];document.getElementById("tDesc").value=t.desc||"";document.getElementById("tCredit").value=t.credit;document.getElementById("tDebit").value=t.debit;editIndex=i;document.getElementById("entryPopup").style.display="flex"}
 async function deleteTransaction(i){if(confirm("இந்த எண்ட்ரியை நீக்கவா?")){users[currentUser].transactions.splice(i,1);renderTransactions();await saveToCloudOnly()}}
-async function addUser(){let n=prompt("Name:"),m=prompt("Mobile:");if(n){let cats=appConfig.guarantees.filter(c=>c.enabled).map(c=>c.name);let cat=cats.length?prompt("Guarantee:",cats[0]):"";users.push({name:n,mobile:m,guarantee:cat||"",transactions:[]});renderUsers();await saveToCloudOnly()}}
+async function addUser(){let n=prompt("Name:"),m=prompt("Mobile:");if(n){let cats=appConfig.securitys.filter(c=>c.enabled).map(c=>c.name);let cat=cats.length?prompt("Security:",cats[0]):"";users.push({name:n,mobile:m,security:cat||"",transactions:[]});renderUsers();await saveToCloudOnly()}}
 async function editUser(i){
   let u=users[i];
   let n=prompt("Name:",u.name);
   if(n!==null&&n.trim())u.name=n;
   let m=prompt("Mobile:",u.mobile||"");
   if(m!==null)u.mobile=m;
-  let sel=document.getElementById("editGuaranteeSelect");
-  if(sel)u.guarantee=sel.value||"";
+  let sel=document.getElementById("editSecuritySelect");
+  if(sel)u.security=sel.value||"";
   closeActionPopup();
   renderUsers();
   if(currentUser===i)renderTransactions();
@@ -302,24 +301,24 @@ async function editUser(i){
 }
 async function deleteUser(i){if(confirm("இந்த யூசரை ஆப்பிலிருந்து நிரந்தரமாக நீக்கவா?")){users.splice(i,1);closeActionPopup();renderUsers();await saveToCloudOnly()}}
 function exportData(){let a=document.createElement("a");a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(users));a.download="Finance_Backup_2026.json";a.click()}
-function allDeleteWithExport(){if(!users.length)return alert("நீக்குவதற்கு டேட்டா எதுவும் இல்லை!");if(confirm("அனைத்து யூசர் விவரங்களும் நிரந்தரமாக நீக்கப்படும். பேக்கப் எடுக்கப்படும். தொடரலாமா?")){let n=prompt("பேக்கப் ஃபைல் பெயர்:","Finance_Backup_All_Delete");if(n===null)return;n=n.trim()||"Finance_Backup_All_Delete";let a=document.createElement("a");a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(users));a.download=n+".json";a.click();setTimeout(async()=>{users=[];saveDataLocally();if(appConfig.showCloud){showLoading(true);try{await fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"data="+encodeURIComponent(JSON.stringify({users:[],guarantees:appConfig.guarantees||[]}))})}catch(e){}showLoading(false)}renderUsers();closeSettingsPopup();alert("அனைத்து டேட்டாக்களும் Export செய்யப்பட்டு நீக்கப்பட்டது!")},700)}}
-async function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async x=>{try{users=JSON.parse(x.target.result);users.forEach(u=>{if(u.guarantee===undefined)u.guarantee="";if(!Array.isArray(u.transactions))u.transactions=[]});renderUsers();await saveToCloudOnly()}catch(err){alert("Invalid backup file")}};r.readAsText(f);e.target.value=""}
+function allDeleteWithExport(){if(!users.length)return alert("நீக்குவதற்கு டேட்டா எதுவும் இல்லை!");if(confirm("அனைத்து யூசர் விவரங்களும் நிரந்தரமாக நீக்கப்படும். பேக்கப் எடுக்கப்படும். தொடரலாமா?")){let n=prompt("பேக்கப் ஃபைல் பெயர்:","Finance_Backup_All_Delete");if(n===null)return;n=n.trim()||"Finance_Backup_All_Delete";let a=document.createElement("a");a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(users));a.download=n+".json";a.click();setTimeout(async()=>{users=[];saveDataLocally();if(appConfig.showCloud){showLoading(true);try{await fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"data="+encodeURIComponent(JSON.stringify({users:[],securitys:appConfig.securitys||[]}))})}catch(e){}showLoading(false)}renderUsers();closeSettingsPopup();alert("அனைத்து டேட்டாக்களும் Export செய்யப்பட்டு நீக்கப்பட்டது!")},700)}}
+async function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async x=>{try{users=JSON.parse(x.target.result);users.forEach(u=>{if(u.security===undefined)u.security="";if(!Array.isArray(u.transactions))u.transactions=[]});renderUsers();await saveToCloudOnly()}catch(err){alert("Invalid backup file")}};r.readAsText(f);e.target.value=""}
 
-function renderGuaranteeSettings(){let d=document.getElementById("guaranteeSettingsList");if(!d)return;d.innerHTML="";appConfig.guarantees.forEach((c,i)=>{let row=document.createElement("div");row.className="cat-setting-item";row.innerHTML=`<span class="cat-name">${escapeHtml(c.name)}</span><button class="mini-btn ${c.enabled?"cat-on":"cat-off"}" onclick="toggleGuarantee(${i})">${c.enabled?"ON":"OFF"}</button><button class="mini-btn cat-edit" onclick="editGuarantee(${i})">Edit</button><button class="mini-btn cat-del" onclick="deleteGuarantee(${i})">Delete</button>`;d.appendChild(row)})}
-function addGuarantee(){let input=document.getElementById("newGuaranteeName"),n=input.value.trim();if(!n)return alert("Guarantee பெயர் கொடுக்கவும்.");if(appConfig.guarantees.some(c=>c.name.toLowerCase()===n.toLowerCase()))return alert("இந்த Guarantee ஏற்கனவே உள்ளது.");appConfig.guarantees.push({name:n,enabled:true});input.value="";saveDataLocally();renderGuaranteeSettings();renderUsers();saveToCloudOnly()}
-function editGuarantee(i){let n=prompt("Guarantee பெயர்:",appConfig.guarantees[i].name);if(n===null)return;n=n.trim();if(!n)return;if(appConfig.guarantees.some((c,j)=>j!==i&&c.name.toLowerCase()===n.toLowerCase()))return alert("இந்த பெயர் ஏற்கனவே உள்ளது.");let old=appConfig.guarantees[i].name;appConfig.guarantees[i].name=n;users.forEach(u=>{if(u.guarantee===old)u.guarantee=n});saveDataLocally();renderGuaranteeSettings();renderUsers();saveToCloudOnly()}
-function deleteGuarantee(i){let n=appConfig.guarantees[i].name;if(users.some(u=>u.guarantee===n)&&!confirm("இந்த Guarantee-ல் Users உள்ளனர். Delete செய்தால் அவர்கள் Uncategorized ஆகிவிடுவார்கள். தொடரவா?"))return;users.forEach(u=>{if(u.guarantee===n)u.guarantee=""});appConfig.guarantees.splice(i,1);saveDataLocally();renderGuaranteeSettings();renderUsers();saveToCloudOnly()}
-function toggleGuarantee(i){appConfig.guarantees[i].enabled=!appConfig.guarantees[i].enabled;saveDataLocally();renderGuaranteeSettings();renderGuaranteeList();renderUsers()}
-function openGuaranteeScreen(){if(!appConfig.showGuarantee)return;hideAllScreens();document.getElementById("guaranteeScreen").classList.remove("hidden");renderGuaranteeList()}
-function closeGuaranteeScreen(){goBack()}
-function renderGuaranteeList(){let d=document.getElementById("guaranteeList");d.innerHTML="";let active=appConfig.guarantees.filter(c=>c.enabled);let totalUsers=users.length,totalBalance=users.reduce((sum,u)=>sum+getBalance(u),0);document.getElementById("guaranteeListTotalUsers").innerText=totalUsers;document.getElementById("guaranteeListTotalBalance").innerText="₹ "+totalBalance.toLocaleString();if(!active.length){d.innerHTML='<div style="padding:30px;text-align:center;color:#aaa">Settings-ல் Guarantee ON செய்யவும்.</div>';return}active.forEach(c=>{let us=users.filter(u=>u.guarantee===c.name),bal=us.reduce((s,u)=>s+getBalance(u),0),x=document.createElement("div");x.className="guarantee-list-item";x.onclick=()=>openGuaranteeUsers(c.name);x.innerHTML=`<div class="cat-row"><div><b>${escapeHtml(c.name)}</b><br><small>${us.length} Users</small></div><strong>₹ ${bal.toLocaleString()}</strong></div>`;d.appendChild(x)})}
-function openGuaranteeUsers(n){selectedGuarantee=n;document.getElementById("guaranteeScreen").classList.add("hidden");document.getElementById("guaranteeUsersScreen").classList.remove("hidden");document.getElementById("selectedGuaranteeTitle").innerText=n;let d=document.getElementById("guaranteeUserList");d.innerHTML="";let us=users.filter(u=>u.guarantee===n);let totalBal=us.reduce((sum,u)=>sum+getBalance(u),0),totalCr=0,totalDb=0;us.forEach(u=>(u.transactions||[]).forEach(t=>{totalCr+=Number(t.credit||0);totalDb+=Number(t.debit||0)}));document.getElementById("guaranteeTotalUsers").innerText=us.length;document.getElementById("guaranteeTotalBalance").innerText="₹ "+totalBal.toLocaleString();document.getElementById("guaranteeTotalCredit").innerText="₹ "+totalCr.toLocaleString();document.getElementById("guaranteeTotalDebit").innerText="₹ "+totalDb.toLocaleString();if(!us.length){d.innerHTML='<div style="padding:30px;text-align:center;color:#aaa">இந்த Guarantee-ல் User இல்லை.</div>';return}us.sort((a,b)=>Math.abs(getBalance(a))-Math.abs(getBalance(b)));us.forEach(u=>createUserCard(u,users.indexOf(u),d,true))}
-function backToGuaranteeList(){document.getElementById("guaranteeUsersScreen").classList.add("hidden");document.getElementById("guaranteeScreen").classList.remove("hidden");renderGuaranteeList()}
+function renderSecuritySettings(){let d=document.getElementById("securitySettingsList");if(!d)return;d.innerHTML="";appConfig.securitys.forEach((c,i)=>{let row=document.createElement("div");row.className="cat-setting-item";row.innerHTML=`<span class="cat-name">${escapeHtml(c.name)}</span><button class="mini-btn ${c.enabled?"cat-on":"cat-off"}" onclick="toggleSecurity(${i})">${c.enabled?"ON":"OFF"}</button><button class="mini-btn cat-edit" onclick="editSecurity(${i})">Edit</button><button class="mini-btn cat-del" onclick="deleteSecurity(${i})">Delete</button>`;d.appendChild(row)})}
+function addSecurity(){let input=document.getElementById("newSecurityName"),n=input.value.trim();if(!n)return alert("Security பெயர் கொடுக்கவும்.");if(appConfig.securitys.some(c=>c.name.toLowerCase()===n.toLowerCase()))return alert("இந்த Security ஏற்கனவே உள்ளது.");appConfig.securitys.push({name:n,enabled:true});input.value="";saveDataLocally();renderSecuritySettings();renderUsers();saveToCloudOnly()}
+function editSecurity(i){let n=prompt("Security பெயர்:",appConfig.securitys[i].name);if(n===null)return;n=n.trim();if(!n)return;if(appConfig.securitys.some((c,j)=>j!==i&&c.name.toLowerCase()===n.toLowerCase()))return alert("இந்த பெயர் ஏற்கனவே உள்ளது.");let old=appConfig.securitys[i].name;appConfig.securitys[i].name=n;users.forEach(u=>{if(u.security===old)u.security=n});saveDataLocally();renderSecuritySettings();renderUsers();saveToCloudOnly()}
+function deleteSecurity(i){let n=appConfig.securitys[i].name;if(users.some(u=>u.security===n)&&!confirm("இந்த Security-ல் Users உள்ளனர். Delete செய்தால் அவர்கள் Uncategorized ஆகிவிடுவார்கள். தொடரவா?"))return;users.forEach(u=>{if(u.security===n)u.security=""});appConfig.securitys.splice(i,1);saveDataLocally();renderSecuritySettings();renderUsers();saveToCloudOnly()}
+function toggleSecurity(i){appConfig.securitys[i].enabled=!appConfig.securitys[i].enabled;saveDataLocally();renderSecuritySettings();renderSecurityList();renderUsers()}
+function openSecurityScreen(){if(!appConfig.showSecurity)return;hideAllScreens();document.getElementById("securityScreen").classList.remove("hidden");renderSecurityList()}
+function closeSecurityScreen(){goBack()}
+function renderSecurityList(){let d=document.getElementById("securityList");d.innerHTML="";let active=appConfig.securitys.filter(c=>c.enabled);let totalUsers=users.length,totalBalance=users.reduce((sum,u)=>sum+getBalance(u),0);document.getElementById("securityListTotalUsers").innerText=totalUsers;document.getElementById("securityListTotalBalance").innerText="₹ "+totalBalance.toLocaleString();if(!active.length){d.innerHTML='<div style="padding:30px;text-align:center;color:#aaa">Settings-ல் Security ON செய்யவும்.</div>';return}active.forEach(c=>{let us=users.filter(u=>u.security===c.name),bal=us.reduce((s,u)=>s+getBalance(u),0),x=document.createElement("div");x.className="security-list-item";x.onclick=()=>openSecurityUsers(c.name);x.innerHTML=`<div class="cat-row"><div><b>${escapeHtml(c.name)}</b><br><small>${us.length} Users</small></div><strong>₹ ${bal.toLocaleString()}</strong></div>`;d.appendChild(x)})}
+function openSecurityUsers(n){selectedSecurity=n;document.getElementById("securityScreen").classList.add("hidden");document.getElementById("securityUsersScreen").classList.remove("hidden");document.getElementById("selectedSecurityTitle").innerText=n;let d=document.getElementById("securityUserList");d.innerHTML="";let us=users.filter(u=>u.security===n);let totalBal=us.reduce((sum,u)=>sum+getBalance(u),0),totalCr=0,totalDb=0;us.forEach(u=>(u.transactions||[]).forEach(t=>{totalCr+=Number(t.credit||0);totalDb+=Number(t.debit||0)}));document.getElementById("securityTotalUsers").innerText=us.length;document.getElementById("securityTotalBalance").innerText="₹ "+totalBal.toLocaleString();document.getElementById("securityTotalCredit").innerText="₹ "+totalCr.toLocaleString();document.getElementById("securityTotalDebit").innerText="₹ "+totalDb.toLocaleString();if(!us.length){d.innerHTML='<div style="padding:30px;text-align:center;color:#aaa">இந்த Security-ல் User இல்லை.</div>';return}us.sort((a,b)=>Math.abs(getBalance(a))-Math.abs(getBalance(b)));us.forEach(u=>createUserCard(u,users.indexOf(u),d,true))}
+function backToSecurityList(){document.getElementById("securityUsersScreen").classList.add("hidden");document.getElementById("securityScreen").classList.remove("hidden");renderSecurityList()}
 
 function copyGoogleScriptCode(){const code=`function getSheet_(name,headers){var ss=SpreadsheetApp.getActiveSpreadsheet();var sh=ss.getSheetByName(name)||ss.insertSheet(name);if(sh.getLastRow()===0){sh.getRange(1,1,1,headers.length).setValues([headers]);sh.setFrozenRows(1);sh.getRange(1,1,1,headers.length).setFontWeight("bold");}return sh;}
-function doGet(e){var ss=SpreadsheetApp.getActiveSpreadsheet();var us=ss.getSheetByName("USERS");var ls=ss.getSheetByName("GUARANTEE")||ss.getSheetByName("LEADERS");var users=[];var guarantees=[];if(ls&&ls.getLastRow()>1){var lr=ls.getRange(2,1,ls.getLastRow()-1,2).getValues();lr.forEach(function(r){if(String(r[0]).trim())guarantees.push({name:String(r[0]),enabled:String(r[1]).toUpperCase()!=="OFF"});});}if(us&&us.getLastRow()>1){var rows=us.getRange(2,1,us.getLastRow()-1,7).getValues();var map={};rows.forEach(function(r){var name=String(r[0]||"");var mobile=String(r[1]||"");var guarantee=String(r[2]||"");var key=name+"\u0001"+mobile;if(!map[key])map[key]={name:name,mobile:mobile,guarantee:guarantee,transactions:[]};if(String(r[3]||"")||String(r[4]||"")||String(r[5]||"")||String(r[6]||"")){var dt=r[3];if(dt instanceof Date)dt=Utilities.formatDate(dt,Session.getScriptTimeZone(),"yyyy-MM-dd");map[key].transactions.push({date:String(dt||""),desc:String(r[4]||""),credit:String(r[5]||""),debit:String(r[6]||"")});}});users=Object.keys(map).map(function(k){return map[k];});}return ContentService.createTextOutput(JSON.stringify({users:users,guarantees:guarantees})).setMimeType(ContentService.MimeType.JSON);}
-function doPost(e){var data=JSON.parse(e.parameter.data||"{}");var users=Array.isArray(data)?data:(data.users||[]);var guarantees=Array.isArray(data.guarantees)?data.guarantees:[];var us=getSheet_("USERS",["USER NAME","MOBILE","GUARANTEE","DATE","DESCRIPTION","CREDIT","DEBIT"]);var ls=getSheet_("GUARANTEE",["GUARANTEE","STATUS"]);if(us.getLastRow()>1)us.getRange(2,1,us.getLastRow()-1,7).clearContent();if(ls.getLastRow()>1)ls.getRange(2,1,ls.getLastRow()-1,2).clearContent();var rows=[];users.forEach(function(u){var tx=u.transactions||[];if(!tx.length)rows.push([u.name||"",u.mobile||"",u.guarantee||"","","","",""]);else tx.forEach(function(t){rows.push([u.name||"",u.mobile||"",u.guarantee||"",t.date||"",t.desc||"",t.credit||"",t.debit||""]);});});if(rows.length)us.getRange(2,1,rows.length,7).setValues(rows);if(guarantees.length){var lr=guarantees.map(function(l){return [l.name||"",l.enabled===false?"OFF":"ON"]});ls.getRange(2,1,lr.length,2).setValues(lr);}return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.JSON);}`;navigator.clipboard.writeText(code).then(()=>alert("Google Apps Script கோடு காப்பி செய்யப்பட்டது!\n\nUSERS மற்றும் GUARANTEES Sheets தானாக உருவாகும்.")).catch(()=>alert("காப்பி செய்வதில் தோல்வி ஏற்பட்டது."))}
-window.onload=async()=>{initConfig();users.forEach(u=>{if(u.guarantee===undefined||u.guarantee===null||u.guarantee==="")u.guarantee=u.security||u.leader||u.category||"";if(!Array.isArray(u.transactions))u.transactions=[]});await fetchFromCloud()}
+function doGet(e){var ss=SpreadsheetApp.getActiveSpreadsheet();var us=ss.getSheetByName("USERS");var ls=ss.getSheetByName("SECURITY")||ss.getSheetByName("LEADERS");var users=[];var securitys=[];if(ls&&ls.getLastRow()>1){var lr=ls.getRange(2,1,ls.getLastRow()-1,2).getValues();lr.forEach(function(r){if(String(r[0]).trim())securitys.push({name:String(r[0]),enabled:String(r[1]).toUpperCase()!=="OFF"});});}if(us&&us.getLastRow()>1){var rows=us.getRange(2,1,us.getLastRow()-1,7).getValues();var map={};rows.forEach(function(r){var name=String(r[0]||"");var mobile=String(r[1]||"");var security=String(r[2]||"");var key=name+"\u0001"+mobile;if(!map[key])map[key]={name:name,mobile:mobile,security:security,transactions:[]};if(String(r[3]||"")||String(r[4]||"")||String(r[5]||"")||String(r[6]||"")){var dt=r[3];if(dt instanceof Date)dt=Utilities.formatDate(dt,Session.getScriptTimeZone(),"yyyy-MM-dd");map[key].transactions.push({date:String(dt||""),desc:String(r[4]||""),credit:String(r[5]||""),debit:String(r[6]||"")});}});users=Object.keys(map).map(function(k){return map[k];});}return ContentService.createTextOutput(JSON.stringify({users:users,securitys:securitys})).setMimeType(ContentService.MimeType.JSON);}
+function doPost(e){var data=JSON.parse(e.parameter.data||"{}");var users=Array.isArray(data)?data:(data.users||[]);var securitys=Array.isArray(data.securitys)?data.securitys:[];var us=getSheet_("USERS",["USER NAME","MOBILE","SECURITY","DATE","DESCRIPTION","CREDIT","DEBIT"]);var ls=getSheet_("SECURITY",["SECURITY","STATUS"]);if(us.getLastRow()>1)us.getRange(2,1,us.getLastRow()-1,7).clearContent();if(ls.getLastRow()>1)ls.getRange(2,1,ls.getLastRow()-1,2).clearContent();var rows=[];users.forEach(function(u){var tx=u.transactions||[];if(!tx.length)rows.push([u.name||"",u.mobile||"",u.security||"","","","",""]);else tx.forEach(function(t){rows.push([u.name||"",u.mobile||"",u.security||"",t.date||"",t.desc||"",t.credit||"",t.debit||""]);});});if(rows.length)us.getRange(2,1,rows.length,7).setValues(rows);if(securitys.length){var lr=securitys.map(function(l){return [l.name||"",l.enabled===false?"OFF":"ON"]});ls.getRange(2,1,lr.length,2).setValues(lr);}return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.JSON);}`;navigator.clipboard.writeText(code).then(()=>alert("Google Apps Script கோடு காப்பி செய்யப்பட்டது!\n\nUSERS மற்றும் SECURITYS Sheets தானாக உருவாகும்.")).catch(()=>alert("காப்பி செய்வதில் தோல்வி ஏற்பட்டது."))}
+window.onload=async()=>{initConfig();await fetchFromCloud()}
 </script>
 </body>
 </html>
