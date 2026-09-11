@@ -135,7 +135,7 @@ input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:
 <div id="txActionPopup" class="popup-overlay" onclick="closeTxActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">டிரான்ஸாக்ஷன் மேலாண்மை</h3><button class="gold" id="txEditBtn" style="width:100%">✏️ Edit Entry</button><button style="background:#e53935;color:white;width:100%;margin-top:10px" id="txDeleteBtn">🗑️ Delete Entry</button><button style="background:#555;color:white;width:100%;margin-top:10px" onclick="closeTxActionPopup()">Cancel</button></div></div>
 
 <script>
-const CLOUD_URL="https://script.google.com/macros/s/AKfycbwGmP7euoPNkl6Foa1nQzvVKcQxz_IEnZhPBPMonjQQ2_SzB2R_oVToSU91QdjaIUiy/exec";
+const CLOUD_URL="https://script.google.com/macros/s/AKfycbxOB1yIak8ckaXh1gukhEVIUkcw9q1qidJVYGnm2i4TXsv5HdlvLUz4V_ekK3KIL0-f/exec";
 let users=JSON.parse(localStorage.getItem("financeUsersData"))||[];
 // Preserve existing Security assignments.
 let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,showSecurity:true,securitys:[{name:"FINANCE",enabled:true},{name:"TICKET",enabled:true},{name:"RO",enabled:true},{name:"OTHER",enabled:true}]};
