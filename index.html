@@ -1,1 +1,256 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Finance Manager Pro</title>
+<style>
+:root{--theme-color:#ffd700;--theme-gradient:linear-gradient(145deg,#ffd700,#333);--app-width:500px;--app-height:100vh;--app-font-size:16px;--app-font-weight:normal}
+body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#111;color:white;user-select:none;-webkit-user-select:none;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}
+.wrapper{max-width:var(--app-width);margin:auto;padding-bottom:50px;background:#111;min-height:var(--app-height);height:var(--app-height);overflow-y:auto;transition:.3s;border:1px solid #222}
+header{background:var(--theme-gradient);color:#111;text-align:center;padding:18px;font-size:calc(var(--app-font-size) + 4px);font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,.5);position:relative}
+.indicator-container{position:absolute;right:15px;top:50%;transform:translateY(-50%)}
+.g-led{width:28px;height:28px;border-radius:50%;background:#222;color:#ff4444;border:2px solid #ff4444;box-shadow:0 0 10px #ff4444,inset 0 0 5px #ff4444;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}
+.g-led.connected{color:#00ff00;border-color:#00ff00;box-shadow:0 0 15px #00ff00,inset 0 0 5px #00ff00,0 0 5px #fff}
+.dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
+.stat-box{background:#222;padding:15px 10px;border-radius:10px;text-align:center;border:1px solid #333}
+.stat-box.red-border{border:2px solid #e53935}.stat-box.blue-border{border:2px solid #1e88e5}.stat-box.leader-border{border:2px solid #ffd700}
+.stat-box small{color:#aaa;font-size:calc(var(--app-font-size) - 3px);text-transform:uppercase;font-weight:bold;display:block;margin-bottom:5px}
+.stat-box h2{margin:0;font-size:calc(var(--app-font-size) + 4px);color:var(--theme-color);font-weight:900}
+.date-filter-box{background:#1a1a1a;border:1px solid #333;padding:10px;margin:0 10px 10px;border-radius:10px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+.date-filter-box input[type=date]{margin:0;padding:8px;font-size:calc(var(--app-font-size) - 2px);background:#222;color:white;border:1px solid #444;border-radius:6px}
+.search-container{padding:10px}.search-input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--theme-color);background:#222;color:white;box-sizing:border-box;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}
+.top-buttons{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;padding:0 10px;margin:10px 0}
+.top-buttons button{padding:10px 2px;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:calc(var(--app-font-size) - 4px);text-align:center;box-sizing:border-box;white-space:nowrap}
+.gold{background:var(--theme-color);color:#111}
+.user-card{width:calc(100% - 20px);margin:10px auto;padding:15px;border-radius:15px;background:#222;cursor:pointer;border:1px solid #333;box-sizing:border-box;position:relative}
+.user-card.redbg{background:linear-gradient(145deg,#8b0000,#5a0000)!important;border-color:#ff4444!important}
+.user-card.bluebg{background:linear-gradient(145deg,#0d3b66,#0b2545)!important;border-color:#1e88e5!important}
+.user-card.leaderbg{background:linear-gradient(145deg,#665000,#302500)!important;border-color:var(--theme-color)!important}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:var(--app-font-size);padding-right:35px}
+.user-meta{margin-top:7px;font-size:calc(var(--app-font-size) - 3px);color:#ddd}
+.user-meta span{display:inline-block;margin-right:12px}.leader-label{color:var(--theme-color);font-weight:bold}
+.menu-dot-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;color:var(--theme-color);font-size:24px;border:none;padding:5px;cursor:pointer;z-index:10}
+.user-card.bluebg .menu-dot-btn{color:#42a5f5!important}
+.profile-header{background:#222;padding:15px 20px;border-bottom:2px solid var(--theme-color);margin-bottom:5px;position:relative}
+.profile-header h2{margin:0 0 12px;color:var(--theme-color);text-align:center;font-size:calc(var(--app-font-size) + 8px);padding-top:5px}
+.prof-header-buttons{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:10px}
+.prof-details-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+#profMobile{margin:0;font-size:var(--app-font-size);color:var(--theme-color);font-weight:bold}#profBalance{margin:0;font-size:calc(var(--app-font-size) + 4px);color:#fff;font-weight:900}
+#profLeader{margin:7px 0 0;text-align:center;color:#ffd700;font-weight:bold}
+.table-container{overflow-x:auto;padding:10px}table{width:100%;border-collapse:collapse;background:#1a1a1a;border-radius:10px}
+th,td{padding:10px 4px;text-align:center;border-bottom:1px solid #444;font-size:calc(var(--app-font-size) - 2px);font-weight:var(--app-font-weight)}
+th{background:#333;color:var(--theme-color);font-weight:bold}.credit-row{background:#1f7a1f!important;color:#fff!important}.debit-row{background:#b91c1c!important;color:#fff!important}.pending-row{background:#2c2c2c;color:var(--theme-color)}
+.popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:1000;justify-content:center;align-items:center}
+.popup-content{background:#222;padding:22px;border-radius:20px;text-align:center;border:2px solid var(--theme-color);width:90%;max-width:380px;max-height:85vh;overflow-y:auto;color:#fff}
+input[type=date],input[type=text],input[type=number],select{width:100%;margin:8px 0;padding:12px;border:none;border-radius:8px;background:#333;color:#fff;box-sizing:border-box;font-size:var(--app-font-size)}
+.hidden{display:none}.setting-row{display:flex;justify-content:space-between;align-items:center;margin:15px 0;text-align:left;font-size:calc(var(--app-font-size) - 1px)}
+.switch{position:relative;display:inline-block;width:46px;height:24px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#444;transition:.3s;border-radius:24px}.slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background:#fff;transition:.3s;border-radius:50%}
+input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:translateX(22px)}
+.color-presets{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px;background:#1a1a1a;padding:10px;border-radius:12px;border:1px solid #333}
+.color-dot{width:100%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.4);cursor:pointer;transition:.2s;box-sizing:border-box}
+.leader-manager{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:10px;margin-top:8px}.cat-setting-item{display:flex;align-items:center;gap:6px;margin:7px 0;padding:7px;background:#222;border-radius:8px}.cat-setting-item .cat-name{flex:1;color:#ffd700;font-weight:bold;text-align:left}.mini-btn{border:0;border-radius:6px;padding:6px 8px;cursor:pointer;font-weight:bold}.cat-on{background:#1f7a1f;color:#fff}.cat-off{background:#555;color:#aaa}.cat-edit{background:#ffd700;color:#111}.cat-del{background:#e53935;color:#fff}
+.leader-list-item{width:calc(100% - 20px);margin:10px auto;padding:15px;border-radius:15px;background:linear-gradient(145deg,#665000,#302500);border:2px solid var(--theme-color);cursor:pointer;box-sizing:border-box}
+.leader-list-item .cat-row{display:flex;justify-content:space-between;align-items:center}.leader-list-item b{color:#ffd700}.leader-list-item small{color:#ddd}
+.leader-header{padding:15px;background:#222;border-bottom:2px solid var(--theme-color);display:flex;justify-content:space-between;align-items:center}
+#loading{display:none;position:fixed;top:10px;right:10px;background:var(--theme-color);color:#111;padding:8px 15px;border-radius:20px;font-weight:bold;z-index:10000;font-size:13px}
+</style>
+</head>
+<body>
+<div id="loading">SAVE...</div>
+<div class="wrapper">
+<header><span id="headerTitleText">Finance Manager Pro</span><div class="indicator-container"><div id="ledLight" class="g-led connected">G</div></div></header>
 
+<div id="mainScreen">
+<div class="search-container" id="searchBoxWrapper"><input type="text" id="userSearch" class="search-input" placeholder="தேடவும்..." oninput="renderUsers()"></div>
+<div class="dashboard" id="dashboardWrapper">
+<div class="stat-box"><small>Total Users</small><h2 id="totalUsers">0</h2></div>
+<div class="stat-box"><small>Total Balance</small><h2 id="totalBalance">0</h2></div>
+<div class="stat-box red-border" id="redDashboardBox"><small style="color:#ff5252">Red Users</small><h2 id="redUsersCount">0</h2></div>
+<div class="stat-box red-border" id="tenPercentDashboardBox"><small style="color:#ff5252">10% Collection</small><h2 id="tenPercentTotal">0</h2></div>
+</div>
+<div class="date-filter-box" id="dateFilterWrapper"><div style="flex:1"><small style="color:#aaa;font-size:11px;font-weight:bold;display:block">FROM</small><input type="date" id="filterStartDate" onchange="renderUsers()"></div><div style="flex:1"><small style="color:#aaa;font-size:11px;font-weight:bold;display:block">TO</small><input type="date" id="filterEndDate" onchange="renderUsers()"></div></div>
+<div class="dashboard" id="dateDashboardWrapper"><div class="stat-box blue-border"><small style="color:#42a5f5">Total Credit (Date)</small><h2 id="dateTotalCredit" style="font-size:calc(var(--app-font-size) + 2px)">0</h2></div><div class="stat-box blue-border"><small style="color:#42a5f5">Total Debit (Date)</small><h2 id="dateTotalDebit" style="font-size:calc(var(--app-font-size) + 2px)">0</h2></div></div>
+<div class="top-buttons">
+<button class="gold" onclick="addUser()">+ User</button><button class="gold" onclick="fetchFromCloud()">🔄 Reset</button><button class="gold" onclick="exportData()">Export</button><button class="gold" onclick="document.getElementById('importFile').click()">Import</button><button class="gold" onclick="openLeaderScreen()">LEADER</button><button style="background:#444;color:white" onclick="openSettingsPopup()">⚙️ Set</button>
+<input type="file" id="importFile" hidden onchange="importData(event)">
+</div>
+<div id="userList"></div>
+</div>
+
+<div id="leaderScreen" class="hidden">
+<div class="leader-header"><button class="gold" onclick="closeLeaderScreen()" style="padding:6px 12px">← Back</button><b style="color:var(--theme-color);font-size:18px">LEADER</b><span style="width:55px"></span></div>
+<div id="leaderList"></div>
+</div>
+
+<div id="leaderUsersScreen" class="hidden">
+<div class="leader-header"><button class="gold" onclick="backToLeaderList()" style="padding:6px 12px">← Back</button><b id="selectedLeaderTitle" style="color:var(--theme-color);font-size:18px"></b><span style="width:55px"></span></div>
+<div class="dashboard" style="margin-top:10px">
+<div class="stat-box"><small>Total Users</small><h2 id="leaderTotalUsers">0</h2></div>
+<div class="stat-box"><small>Total Balance</small><h2 id="leaderTotalBalance">₹ 0</h2></div>
+<div class="stat-box"><small>Total Credit</small><h2 id="leaderTotalCredit">₹ 0</h2></div>
+<div class="stat-box"><small>Total Debit</small><h2 id="leaderTotalDebit">₹ 0</h2></div>
+</div>
+<div id="leaderUserList"></div>
+</div>
+
+<div id="userScreen" class="hidden">
+<div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="goBack()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openEntryForm()" style="padding:6px 12px">+ Entry</button></div><h2 id="profName"></h2><div class="prof-details-row"><p id="profMobile"></p><h3 id="profBalance"></h3></div><div id="profLeader"></div></div>
+<div class="table-container"><table><thead><tr><th>Date</th><th>Desc</th><th>Cr</th><th>Db</th><th>Bal</th></tr></thead><tbody id="transactionTable"></tbody></table></div>
+</div>
+</div>
+
+<div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()">
+<h3 style="color:var(--theme-color);margin-top:0">⚙️ App Settings</h3>
+<div style="text-align:left;margin-bottom:12px"><label style="font-size:14px;color:#aaa">பேனர் பெயர்:</label><input type="text" id="setAppTitle" oninput="applySettings()"></div>
+<div style="text-align:left;margin-bottom:12px"><label style="font-size:14px;color:#aaa">ஆப் அகலம் (Width): <span id="widthVal">500</span>px</label><input type="range" id="setAppWidth" min="360" max="800" step="10" style="width:100%" oninput="applySettings()"></div>
+<div style="text-align:left;margin-bottom:12px"><label style="font-size:14px;color:#aaa">ஆப் உயரம் (Height): <span id="heightVal">100</span>%</label><input type="range" id="setAppHeight" min="50" max="100" step="5" style="width:100%" oninput="applySettings()"></div>
+<div style="text-align:left;margin-bottom:12px"><label style="font-size:14px;color:#aaa">எழுத்து அளவு: <span id="fontSizeVal">16</span>px</label><input type="range" id="setAppFontSize" min="12" max="24" step="1" style="width:100%" oninput="applySettings()"></div>
+<div style="text-align:left;margin-bottom:12px"><label style="font-size:14px;color:#aaa">எழுத்து வடிவம்:</label><select id="setAppFontWeight" onchange="applySettings()"><option value="normal">Normal</option><option value="bold">Bold</option></select></div>
+<div style="text-align:left;margin-bottom:15px"><label style="font-size:14px;color:#aaa">தீம் கலர் (25+ வண்ணங்கள்):</label><div class="color-presets">
+<div class="color-dot" style="background:#ffd700" onclick="setPresetColor('#ffd700')"></div><div class="color-dot" style="background:#ffb300" onclick="setPresetColor('#ffb300')"></div><div class="color-dot" style="background:#ff9100" onclick="setPresetColor('#ff9100')"></div><div class="color-dot" style="background:#ff3d00" onclick="setPresetColor('#ff3d00')"></div><div class="color-dot" style="background:#e53935" onclick="setPresetColor('#e53935')"></div><div class="color-dot" style="background:#d81b60" onclick="setPresetColor('#d81b60')"></div><div class="color-dot" style="background:#8e24aa" onclick="setPresetColor('#8e24aa')"></div><div class="color-dot" style="background:#5e35b1" onclick="setPresetColor('#5e35b1')"></div><div class="color-dot" style="background:#3949ab" onclick="setPresetColor('#3949ab')"></div><div class="color-dot" style="background:#1e88e5" onclick="setPresetColor('#1e88e5')"></div><div class="color-dot" style="background:#00b0ff" onclick="setPresetColor('#00b0ff')"></div><div class="color-dot" style="background:#00e5ff" onclick="setPresetColor('#00e5ff')"></div><div class="color-dot" style="background:#00edd6" onclick="setPresetColor('#00edd6')"></div><div class="color-dot" style="background:#00a86b" onclick="setPresetColor('#00a86b')"></div><div class="color-dot" style="background:#4caf50" onclick="setPresetColor('#4caf50')"></div><div class="color-dot" style="background:#7cb342" onclick="setPresetColor('#7cb342')"></div><div class="color-dot" style="background:#c0ca33" onclick="setPresetColor('#c0ca33')"></div><div class="color-dot" style="background:#d4af37" onclick="setPresetColor('#d4af37')"></div><div class="color-dot" style="background:#b8860b" onclick="setPresetColor('#b8860b')"></div><div class="color-dot" style="background:#a0522d" onclick="setPresetColor('#a0522d')"></div><div class="color-dot" style="background:#808080" onclick="setPresetColor('#808080')"></div><div class="color-dot" style="background:#90a4ae" onclick="setPresetColor('#90a4ae')"></div><div class="color-dot" style="background:#78909c" onclick="setPresetColor('#78909c')"></div><input type="color" id="setThemeColor" style="width:100%;height:100%;border:none;background:transparent;cursor:pointer" oninput="applySettings()">
+</div></div>
+<hr style="border-color:#333">
+<div class="setting-row"><span>Dashboard பாக்ஸ் காட்டு</span><label class="switch"><input type="checkbox" id="switchDash" checked onchange="applySettings()"><span class="slider"></span></label></div>
+<div class="setting-row"><span>Search பார் காட்டு</span><label class="switch"><input type="checkbox" id="switchSearch" checked onchange="applySettings()"><span class="slider"></span></label></div>
+<div class="setting-row"><span>தேதி ஃபில்டர் & டெபிட்/கிரெடிட் பாக்ஸ் காட்டு</span><label class="switch"><input type="checkbox" id="switchDateFilter" checked onchange="applySettings()"><span class="slider"></span></label></div>
+<div class="setting-row"><span>சிவப்பு யூசர் ஹைலைட் & சாட்டிங்</span><label class="switch"><input type="checkbox" id="switchRedHighlight" onchange="applySettings()"><span class="slider"></span></label></div>
+<div class="setting-row"><span>நீல யூசர் ஹைலைட் & சாட்டிங்</span><label class="switch"><input type="checkbox" id="switchBlueHighlight" onchange="applySettings()"><span class="slider"></span></label></div>
+<div class="setting-row"><span>Leader வசதி காட்டு</span><label class="switch"><input type="checkbox" id="switchLeader" checked onchange="applySettings()"><span class="slider"></span></label></div>
+
+<div style="text-align:left;margin-top:18px"><label style="font-size:14px;color:#aaa">Leader பெயர்கள் (Add / Edit / Delete / ON-OFF)</label><div class="leader-manager"><div style="display:flex;gap:6px"><input type="text" id="newLeaderName" placeholder="புதிய Leader பெயர்" style="margin:0;flex:1"><button class="gold mini-btn" onclick="addLeader()">+ Add</button></div><div id="leaderSettingsList"></div></div></div>
+
+<div class="setting-row"><span>Google Sheet ஒத்திசைவு (Cloud Sync)</span><label class="switch"><input type="checkbox" id="switchCloud" checked onchange="applySettings()"><span class="slider"></span></label></div>
+<div style="margin:15px 0"><button class="gold" style="width:100%;padding:10px;font-weight:bold;border:none;border-radius:8px" onclick="copyGoogleScriptCode()">📋 Google Script காப்பி செய்</button></div>
+<hr style="border-color:#333"><button style="background:#e53935;color:white;width:100%;margin-top:5px;padding:12px;font-weight:bold;border:none;border-radius:10px" onclick="allDeleteWithExport()">⚠️ All Delete</button>
+<button class="gold" style="width:100%;margin-top:12px;padding:12px" onclick="closeSettingsPopup()">Done</button>
+</div></div>
+
+<div id="entryPopup" class="popup-overlay"><div class="popup-content"><h3 style="color:var(--theme-color);margin-top:0">New Entry</h3><input type="date" id="tDate"><input type="text" id="tDesc" placeholder="Description"><input type="number" id="tCredit" placeholder="Credit"><input type="number" id="tDebit" placeholder="Debit"><div style="display:flex;gap:10px;margin-top:10px"><button class="gold" onclick="saveTransaction()" style="flex:1">Save</button><button style="background:#555;color:white;flex:1" onclick="closeEntryForm()">Close</button></div></div></div>
+<div id="actionPopup" class="popup-overlay" onclick="closeActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="popupTitle" style="color:var(--theme-color);margin-top:0">Manage User</h3><div style="text-align:left;margin:0 0 12px"><label style="font-size:13px;color:#aaa;font-weight:bold">LEADER</label><select id="editLeaderSelect" style="margin:6px 0 0;width:100%"></select></div><button class="gold" id="editBtn" style="width:100%;padding:12px;font-weight:bold;border:none;border-radius:10px">✏️ Edit User</button><button style="background:#e53935;color:white;width:100%;margin-top:10px;padding:12px;font-weight:bold;border:none;border-radius:10px" id="deleteBtn">🗑️ Delete User</button><button style="background:#555;color:white;width:100%;margin-top:10px;padding:12px;border:none;border-radius:10px" onclick="closeActionPopup()">Cancel</button></div></div>
+<div id="txActionPopup" class="popup-overlay" onclick="closeTxActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">டிரான்ஸாக்ஷன் மேலாண்மை</h3><button class="gold" id="txEditBtn" style="width:100%">✏️ Edit Entry</button><button style="background:#e53935;color:white;width:100%;margin-top:10px" id="txDeleteBtn">🗑️ Delete Entry</button><button style="background:#555;color:white;width:100%;margin-top:10px" onclick="closeTxActionPopup()">Cancel</button></div></div>
+
+<script>
+const CLOUD_URL="https://script.google.com/macros/s/AKfycbwGmP7euoPNkl6Foa1nQzvVKcQxz_IEnZhPBPMonjQQ2_SzB2R_oVToSU91QdjaIUiy/exec";
+let users=JSON.parse(localStorage.getItem("financeUsersData"))||[];
+// Preserve existing Leader assignments.
+let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,showLeader:true,leaders:[{name:"FINANCE",enabled:true},{name:"TICKET",enabled:true},{name:"RO",enabled:true},{name:"OTHER",enabled:true}]};
+
+// Migrate the previous Category configuration to Leader without losing settings.
+if(!Array.isArray(appConfig.leaders)){
+  if(Array.isArray(appConfig.categories)){
+    appConfig.leaders=appConfig.categories.map(c=>typeof c==="string"?{name:c,enabled:true}:{name:c.name||"",enabled:c.enabled!==false});
+  }else{
+    appConfig.leaders=[{name:"FINANCE",enabled:true},{name:"TICKET",enabled:true},{name:"RO",enabled:true},{name:"OTHER",enabled:true}];
+  }
+}
+appConfig.leaders=appConfig.leaders.map(c=>typeof c==="string"?{name:c,enabled:true}:{name:c.name||"",enabled:c.enabled!==false});
+if(appConfig.showLeader===undefined) appConfig.showLeader=appConfig.showCategory!==false;
+users.forEach(u=>{if(u.leader===undefined)u.leader="";if(!Array.isArray(u.transactions))u.transactions=[]});
+let currentUser=null,editIndex=null,selectedLeader=null;
+
+function showLoading(x){document.getElementById("loading").style.display=x?"block":"none"}
+function localToday(){let d=new Date(),o=d.getTimezoneOffset();return new Date(d.getTime()-o*60000).toISOString().split("T")[0]}
+function initConfig(){
+document.getElementById("setAppTitle").value=appConfig.title;document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setThemeColor").value=appConfig.color;
+document.getElementById("switchDash").checked=appConfig.showDash;document.getElementById("switchSearch").checked=appConfig.showSearch;document.getElementById("switchDateFilter").checked=appConfig.showDateFilter!==false;document.getElementById("switchRedHighlight").checked=!!appConfig.showRedHighlight;document.getElementById("switchBlueHighlight").checked=!!appConfig.showBlueHighlight;document.getElementById("switchCloud").checked=appConfig.showCloud!==false;document.getElementById("switchLeader").checked=appConfig.showLeader!==false;
+if(!document.getElementById("filterStartDate").value)document.getElementById("filterStartDate").value=localToday();if(!document.getElementById("filterEndDate").value)document.getElementById("filterEndDate").value=localToday();applyConfigUI();renderLeaderSettings()
+}
+function setPresetColor(c){document.getElementById("setThemeColor").value=c;applySettings()}
+function applySettings(){
+appConfig.title=document.getElementById("setAppTitle").value||"Finance Manager Pro";appConfig.width=document.getElementById("setAppWidth").value;appConfig.height=document.getElementById("setAppHeight").value||100;appConfig.fontSize=document.getElementById("setAppFontSize").value||16;appConfig.fontWeight=document.getElementById("setAppFontWeight").value||"normal";appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showLeader=document.getElementById("switchLeader").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;
+localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderLeaderSettings();setTimeout(renderUsers,30)
+}
+function applyConfigUI(){
+document.getElementById("headerTitleText").innerText=appConfig.title;document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height||100;document.getElementById("fontSizeVal").innerText=appConfig.fontSize||16;
+document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",(appConfig.height||100)+"vh");document.documentElement.style.setProperty("--app-font-size",(appConfig.fontSize||16)+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight||"normal");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);
+document.getElementById("dashboardWrapper").style.display=appConfig.showDash?"grid":"none";document.getElementById("searchBoxWrapper").style.display=appConfig.showSearch?"block":"none";document.getElementById("redDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";document.getElementById("tenPercentDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";
+let dv=appConfig.showDateFilter&&appConfig.showBlueHighlight;document.getElementById("dateFilterWrapper").style.display=dv?"flex":"none";document.getElementById("dateDashboardWrapper").style.display=dv?"grid":"none";
+document.querySelector('.top-buttons button:nth-child(5)').style.display=appConfig.showLeader!==false?"block":"none";document.getElementById("ledLight").style.display=appConfig.showCloud?"flex":"none"
+}
+function openSettingsPopup(){renderLeaderSettings();document.getElementById("settingsPopup").style.display="flex"}function closeSettingsPopup(){document.getElementById("settingsPopup").style.display="none"}
+function saveDataLocally(){localStorage.setItem("financeUsersData",JSON.stringify(users));localStorage.setItem("financeConfig",JSON.stringify(appConfig))}
+async function saveToCloudOnly(){saveDataLocally();if(!appConfig.showCloud)return;showLoading(true);try{let payload={users:users,leaders:appConfig.leaders||[]};await fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"data="+encodeURIComponent(JSON.stringify(payload))});document.getElementById("ledLight").classList.add("connected")}catch(e){document.getElementById("ledLight").classList.remove("connected")}showLoading(false)}
+async function fetchFromCloud(){if(!appConfig.showCloud){renderUsers();return}showLoading(true);try{let r=await fetch(CLOUD_URL),d=await r.json();if(Array.isArray(d)){users=d;users.forEach(u=>{if(u.leader===undefined)u.leader=u.leader||"";delete u.leader;if(!Array.isArray(u.transactions))u.transactions=[]});}else if(d&&Array.isArray(d.users)){users=d.users;users.forEach(u=>{if(u.leader===undefined)u.leader=u.leader||"";delete u.leader;if(!Array.isArray(u.transactions))u.transactions=[]});if(Array.isArray(d.leaders))appConfig.leaders=d.leaders.map(x=>typeof x==="string"?{name:x,enabled:true}:x);saveDataLocally();renderUsers();renderLeaderSettings();document.getElementById("ledLight").classList.add("connected")}}catch(e){document.getElementById("ledLight").classList.remove("connected");renderUsers()}showLoading(false)}
+function formatDate(d){if(!d)return"";let x=new Date(d);if(isNaN(x.getTime()))return String(d).trim();return x.getDate()+"-"+(x.getMonth()+1)+"-"+String(x.getFullYear()).substring(2)}
+function getBalance(u){return(u.transactions||[]).reduce((a,t)=>a+Number(t.credit||0)-Number(t.debit||0),0)}
+function isRed(u){let today=localToday();return(u.transactions||[]).some(t=>{let d=t.date?String(t.date).split("T")[0]:"";return d&&d<=today&&String(t.credit??"").trim()===""&&String(t.debit??"").trim()===""})}
+function getTenPercent(u){if(!isRed(u))return 0;let l=(u.transactions||[]).find(t=>Number(t.debit)>0);return l?Number(l.debit)*.1:0}
+function getDebitInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=t.date?String(t.date).split("T")[0]:"",v=Number(t.debit||0);return d&&s&&e&&d>=s&&d<=e&&v>0?sum+v:sum},0)}
+function leaderEnabled(n){let c=appConfig.leaders.find(x=>x.name===n);return c?c.enabled:false}
+function renderUsers(){
+let search=(document.getElementById("userSearch").value||"").toLowerCase().trim(),list=document.getElementById("userList");list.innerHTML="";
+let total=0,red=0,ten=0,cr=0,db=0,s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value;
+users.forEach(u=>{total+=getBalance(u);if(isRed(u)){red++;ten+=getTenPercent(u)};(u.transactions||[]).forEach(t=>{let d=t.date?String(t.date).split("T")[0]:"";if(d&&s&&e&&d>=s&&d<=e){cr+=Number(t.credit||0);db+=Number(t.debit||0)}})});
+document.getElementById("totalUsers").innerText=users.length;document.getElementById("totalBalance").innerText="₹ "+total.toLocaleString();document.getElementById("redUsersCount").innerText=red;document.getElementById("tenPercentTotal").innerText="₹ "+ten.toLocaleString();document.getElementById("dateTotalCredit").innerText="₹ "+cr.toLocaleString();document.getElementById("dateTotalDebit").innerText="₹ "+db.toLocaleString();
+let f=users.filter(u=>(u.name||"").toLowerCase().includes(search)||(u.mobile||"").toLowerCase().includes(search));
+f.sort((a,b)=>{if(appConfig.showRedHighlight&&isRed(a)!==isRed(b))return isRed(b)-isRed(a);if(appConfig.showBlueHighlight&&appConfig.showDateFilter){let aa=getDebitInDateRange(a,s,e),bb=getDebitInDateRange(b,s,e);if((aa>0)!==(bb>0))return(bb>0)-(aa>0);if(aa>0&&bb>0)return aa-bb}return Math.abs(getBalance(a))-Math.abs(getBalance(b))});
+f.forEach(u=>createUserCard(u,users.indexOf(u),list))
+}
+function createUserCard(u,idx,list){
+let bal=getBalance(u),red=appConfig.showRedHighlight&&isRed(u),da=getDebitInDateRange(u,document.getElementById("filterStartDate").value,document.getElementById("filterEndDate").value),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&da>0,card=document.createElement("div");card.className="user-card"+(red?" redbg":blue?" bluebg":u.leader?" leaderbg":"");card.onclick=()=>openUser(idx);card.innerHTML=`<div class="row"><div><b>${escapeHtml(u.name||"")}</b><br><small style="font-size:13px">${escapeHtml(u.mobile||"")}</small><div class="user-meta"><span class="leader-label">Leader: ${escapeHtml(u.leader||"Uncategorized")}</span></div></div><div style="font-weight:bold">₹ ${bal.toLocaleString()}</div></div><button class="menu-dot-btn" onclick="triggerActionMenu(event,${idx})">&#8942;</button>`;list.appendChild(card)
+}
+function escapeHtml(x){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function triggerActionMenu(e,i){e.stopPropagation();openActionPopup(users[i].name,i)}
+function openActionPopup(n,i){
+  document.getElementById("popupTitle").innerText=n;
+  let sel=document.getElementById("editLeaderSelect");
+  sel.innerHTML="";
+  let none=document.createElement("option");none.value="";none.textContent="— No Leader —";sel.appendChild(none);
+  appConfig.leaders.filter(x=>x.enabled).forEach(l=>{
+    let o=document.createElement("option");o.value=l.name;o.textContent=l.name;sel.appendChild(o);
+  });
+  sel.value=users[i].leader||"";
+  document.getElementById("actionPopup").style.display="flex";
+  document.getElementById("editBtn").onclick=()=>editUser(i);
+  document.getElementById("deleteBtn").onclick=()=>deleteUser(i);
+}
+function closeActionPopup(){document.getElementById("actionPopup").style.display="none"}
+function openUser(i){currentUser=i;hideAllScreens();document.getElementById("userScreen").classList.remove("hidden");renderTransactions()}
+function hideAllScreens(){document.getElementById("mainScreen").classList.add("hidden");document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderUsersScreen").classList.add("hidden");document.getElementById("userScreen").classList.add("hidden")}
+function goBack(){hideAllScreens();document.getElementById("mainScreen").classList.remove("hidden");renderUsers()}
+function openEntryForm(){document.getElementById("tDate").value=localToday();document.getElementById("tDesc").value="";document.getElementById("tCredit").value="";document.getElementById("tDebit").value="";editIndex=null;document.getElementById("entryPopup").style.display="flex"}
+function closeEntryForm(){document.getElementById("entryPopup").style.display="none";editIndex=null}
+async function saveTransaction(){let d=document.getElementById("tDate").value,desc=document.getElementById("tDesc").value,c=document.getElementById("tCredit").value,deb=document.getElementById("tDebit").value;if(!d)return alert("Date is required!");let tx={date:d,desc,credit:c,debit:deb};if(editIndex===null)users[currentUser].transactions.push(tx);else{users[currentUser].transactions[editIndex]=tx;editIndex=null}closeEntryForm();renderTransactions();await saveToCloudOnly()}
+function renderTransactions(){let u=users[currentUser];u.transactions.sort((a,b)=>new Date(a.date)-new Date(b.date));document.getElementById("profName").innerText=u.name;document.getElementById("profMobile").innerText=u.mobile||"No Mobile";document.getElementById("profBalance").innerText="Bal: ₹"+getBalance(u).toLocaleString();document.getElementById("profLeader").innerText="LEADER: "+(u.leader||"No Leader");let body=document.getElementById("transactionTable");body.innerHTML="";let bal=0,arr=[];u.transactions.forEach((tx,i)=>{let note=String(tx.credit??"").trim()===""&&String(tx.debit??"").trim()==="";if(!note)bal+=Number(tx.credit||0)-Number(tx.debit||0);arr.push({...tx,cumulative:note?"":bal,actualIdx:i})});arr.reverse().forEach(tx=>{let r=document.createElement("tr");if(String(tx.credit??"").trim()!==""&&Number(tx.credit)>=0)r.className="credit-row";else if(String(tx.debit??"").trim()!==""&&Number(tx.debit)>=0)r.className="debit-row";else r.className="pending-row";r.innerHTML=`<td>${formatDate(tx.date)}</td><td>${escapeHtml(tx.desc||"")}</td><td>${tx.credit||""}</td><td>${tx.debit||""}</td><td><b>${tx.cumulative===""?"":"₹ "+tx.cumulative.toLocaleString()}</b></td>`;setupLongPress(r,()=>openTxActionPopup(tx.actualIdx));body.appendChild(r)})}
+function setupLongPress(el,cb){let t;const s=()=>t=setTimeout(cb,800),c=()=>clearTimeout(t);el.addEventListener("mousedown",s);el.addEventListener("touchstart",s,{passive:true});["click","mouseout","touchend","touchcancel"].forEach(x=>el.addEventListener(x,c))}
+function openTxActionPopup(i){document.getElementById("txActionPopup").style.display="flex";document.getElementById("txEditBtn").onclick=()=>{closeTxActionPopup();editTransaction(i)};document.getElementById("txDeleteBtn").onclick=()=>{closeTxActionPopup();deleteTransaction(i)}}function closeTxActionPopup(){document.getElementById("txActionPopup").style.display="none"}
+function editTransaction(i){let t=users[currentUser].transactions[i];document.getElementById("tDate").value=String(t.date).split("T")[0];document.getElementById("tDesc").value=t.desc||"";document.getElementById("tCredit").value=t.credit;document.getElementById("tDebit").value=t.debit;editIndex=i;document.getElementById("entryPopup").style.display="flex"}
+async function deleteTransaction(i){if(confirm("இந்த எண்ட்ரியை நீக்கவா?")){users[currentUser].transactions.splice(i,1);renderTransactions();await saveToCloudOnly()}}
+async function addUser(){let n=prompt("Name:"),m=prompt("Mobile:");if(n){let cats=appConfig.leaders.filter(c=>c.enabled).map(c=>c.name);let cat=cats.length?prompt("Leader:",cats[0]):"";users.push({name:n,mobile:m,leader:cat||"",transactions:[]});renderUsers();await saveToCloudOnly()}}
+async function editUser(i){
+  let u=users[i];
+  let n=prompt("Name:",u.name);
+  if(n!==null&&n.trim())u.name=n;
+  let m=prompt("Mobile:",u.mobile||"");
+  if(m!==null)u.mobile=m;
+  let sel=document.getElementById("editLeaderSelect");
+  if(sel)u.leader=sel.value||"";
+  closeActionPopup();
+  renderUsers();
+  if(currentUser===i)renderTransactions();
+  await saveToCloudOnly();
+}
+async function deleteUser(i){if(confirm("இந்த யூசரை ஆப்பிலிருந்து நிரந்தரமாக நீக்கவா?")){users.splice(i,1);closeActionPopup();renderUsers();await saveToCloudOnly()}}
+function exportData(){let a=document.createElement("a");a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(users));a.download="Finance_Backup_2026.json";a.click()}
+function allDeleteWithExport(){if(!users.length)return alert("நீக்குவதற்கு டேட்டா எதுவும் இல்லை!");if(confirm("அனைத்து யூசர் விவரங்களும் நிரந்தரமாக நீக்கப்படும். பேக்கப் எடுக்கப்படும். தொடரலாமா?")){let n=prompt("பேக்கப் ஃபைல் பெயர்:","Finance_Backup_All_Delete");if(n===null)return;n=n.trim()||"Finance_Backup_All_Delete";let a=document.createElement("a");a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(users));a.download=n+".json";a.click();setTimeout(async()=>{users=[];saveDataLocally();if(appConfig.showCloud){showLoading(true);try{await fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"data="+encodeURIComponent(JSON.stringify({users:[],leaders:appConfig.leaders||[]}))})}catch(e){}showLoading(false)}renderUsers();closeSettingsPopup();alert("அனைத்து டேட்டாக்களும் Export செய்யப்பட்டு நீக்கப்பட்டது!")},700)}}
+async function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async x=>{try{users=JSON.parse(x.target.result);users.forEach(u=>{if(u.leader===undefined)u.leader="";if(!Array.isArray(u.transactions))u.transactions=[]});renderUsers();await saveToCloudOnly()}catch(err){alert("Invalid backup file")}};r.readAsText(f);e.target.value=""}
+
+function renderLeaderSettings(){let d=document.getElementById("leaderSettingsList");if(!d)return;d.innerHTML="";appConfig.leaders.forEach((c,i)=>{let row=document.createElement("div");row.className="cat-setting-item";row.innerHTML=`<span class="cat-name">${escapeHtml(c.name)}</span><button class="mini-btn ${c.enabled?"cat-on":"cat-off"}" onclick="toggleLeader(${i})">${c.enabled?"ON":"OFF"}</button><button class="mini-btn cat-edit" onclick="editLeader(${i})">Edit</button><button class="mini-btn cat-del" onclick="deleteLeader(${i})">Delete</button>`;d.appendChild(row)})}
+function addLeader(){let input=document.getElementById("newLeaderName"),n=input.value.trim();if(!n)return alert("Leader பெயர் கொடுக்கவும்.");if(appConfig.leaders.some(c=>c.name.toLowerCase()===n.toLowerCase()))return alert("இந்த Leader ஏற்கனவே உள்ளது.");appConfig.leaders.push({name:n,enabled:true});input.value="";saveDataLocally();renderLeaderSettings();renderUsers();saveToCloudOnly()}
+function editLeader(i){let n=prompt("Leader பெயர்:",appConfig.leaders[i].name);if(n===null)return;n=n.trim();if(!n)return;if(appConfig.leaders.some((c,j)=>j!==i&&c.name.toLowerCase()===n.toLowerCase()))return alert("இந்த பெயர் ஏற்கனவே உள்ளது.");let old=appConfig.leaders[i].name;appConfig.leaders[i].name=n;users.forEach(u=>{if(u.leader===old)u.leader=n});saveDataLocally();renderLeaderSettings();renderUsers();saveToCloudOnly()}
+function deleteLeader(i){let n=appConfig.leaders[i].name;if(users.some(u=>u.leader===n)&&!confirm("இந்த Leader-ல் Users உள்ளனர். Delete செய்தால் அவர்கள் Uncategorized ஆகிவிடுவார்கள். தொடரவா?"))return;users.forEach(u=>{if(u.leader===n)u.leader=""});appConfig.leaders.splice(i,1);saveDataLocally();renderLeaderSettings();renderUsers();saveToCloudOnly()}
+function toggleLeader(i){appConfig.leaders[i].enabled=!appConfig.leaders[i].enabled;saveDataLocally();renderLeaderSettings();renderLeaderList();renderUsers()}
+function openLeaderScreen(){if(!appConfig.showLeader)return;hideAllScreens();document.getElementById("leaderScreen").classList.remove("hidden");renderLeaderList()}
+function closeLeaderScreen(){goBack()}
+function renderLeaderList(){let d=document.getElementById("leaderList");d.innerHTML="";let active=appConfig.leaders.filter(c=>c.enabled);if(!active.length){d.innerHTML='<div style="padding:30px;text-align:center;color:#aaa">Settings-ல் Leader ON செய்யவும்.</div>';return}active.forEach(c=>{let us=users.filter(u=>u.leader===c.name),bal=us.reduce((s,u)=>s+getBalance(u),0),x=document.createElement("div");x.className="leader-list-item";x.onclick=()=>openLeaderUsers(c.name);x.innerHTML=`<div class="cat-row"><div><b>${escapeHtml(c.name)}</b><br><small>${us.length} Users</small></div><strong>₹ ${bal.toLocaleString()}</strong></div>`;d.appendChild(x)})}
+function openLeaderUsers(n){selectedLeader=n;document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderUsersScreen").classList.remove("hidden");document.getElementById("selectedLeaderTitle").innerText=n;let d=document.getElementById("leaderUserList");d.innerHTML="";let us=users.filter(u=>u.leader===n);let totalBal=us.reduce((sum,u)=>sum+getBalance(u),0),totalCr=0,totalDb=0;us.forEach(u=>(u.transactions||[]).forEach(t=>{totalCr+=Number(t.credit||0);totalDb+=Number(t.debit||0)}));document.getElementById("leaderTotalUsers").innerText=us.length;document.getElementById("leaderTotalBalance").innerText="₹ "+totalBal.toLocaleString();document.getElementById("leaderTotalCredit").innerText="₹ "+totalCr.toLocaleString();document.getElementById("leaderTotalDebit").innerText="₹ "+totalDb.toLocaleString();if(!us.length){d.innerHTML='<div style="padding:30px;text-align:center;color:#aaa">இந்த Leader-ல் User இல்லை.</div>';return}us.sort((a,b)=>Math.abs(getBalance(a))-Math.abs(getBalance(b)));us.forEach(u=>createUserCard(u,users.indexOf(u),d))}
+function backToLeaderList(){document.getElementById("leaderUsersScreen").classList.add("hidden");document.getElementById("leaderScreen").classList.remove("hidden");renderLeaderList()}
+
+function copyGoogleScriptCode(){const code=`function getSheet_(name,headers){var ss=SpreadsheetApp.getActiveSpreadsheet();var sh=ss.getSheetByName(name)||ss.insertSheet(name);if(sh.getLastRow()===0){sh.getRange(1,1,1,headers.length).setValues([headers]);sh.setFrozenRows(1);sh.getRange(1,1,1,headers.length).setFontWeight("bold");}return sh;}
+function doGet(e){var ss=SpreadsheetApp.getActiveSpreadsheet();var us=ss.getSheetByName("USERS");var ls=ss.getSheetByName("LEADERS");var users=[];var leaders=[];if(ls&&ls.getLastRow()>1){var lr=ls.getRange(2,1,ls.getLastRow()-1,2).getValues();lr.forEach(function(r){if(String(r[0]).trim())leaders.push({name:String(r[0]),enabled:String(r[1]).toUpperCase()!=="OFF"});});}if(us&&us.getLastRow()>1){var rows=us.getRange(2,1,us.getLastRow()-1,7).getValues();var map={};rows.forEach(function(r){var name=String(r[0]||"");var mobile=String(r[1]||"");var leader=String(r[2]||"");var key=name+"\u0001"+mobile;if(!map[key])map[key]={name:name,mobile:mobile,leader:leader,transactions:[]};if(String(r[3]||"")||String(r[4]||"")||String(r[5]||"")||String(r[6]||"")){var dt=r[3];if(dt instanceof Date)dt=Utilities.formatDate(dt,Session.getScriptTimeZone(),"yyyy-MM-dd");map[key].transactions.push({date:String(dt||""),desc:String(r[4]||""),credit:String(r[5]||""),debit:String(r[6]||"")});}});users=Object.keys(map).map(function(k){return map[k];});}return ContentService.createTextOutput(JSON.stringify({users:users,leaders:leaders})).setMimeType(ContentService.MimeType.JSON);}
+function doPost(e){var data=JSON.parse(e.parameter.data||"{}");var users=Array.isArray(data)?data:(data.users||[]);var leaders=Array.isArray(data.leaders)?data.leaders:[];var us=getSheet_("USERS",["USER NAME","MOBILE","LEADER","DATE","DESCRIPTION","CREDIT","DEBIT"]);var ls=getSheet_("LEADERS",["LEADER","STATUS"]);if(us.getLastRow()>1)us.getRange(2,1,us.getLastRow()-1,7).clearContent();if(ls.getLastRow()>1)ls.getRange(2,1,ls.getLastRow()-1,2).clearContent();var rows=[];users.forEach(function(u){var tx=u.transactions||[];if(!tx.length)rows.push([u.name||"",u.mobile||"",u.leader||"","","","",""]);else tx.forEach(function(t){rows.push([u.name||"",u.mobile||"",u.leader||"",t.date||"",t.desc||"",t.credit||"",t.debit||""]);});});if(rows.length)us.getRange(2,1,rows.length,7).setValues(rows);if(leaders.length){var lr=leaders.map(function(l){return [l.name||"",l.enabled===false?"OFF":"ON"]});ls.getRange(2,1,lr.length,2).setValues(lr);}return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.JSON);}`;navigator.clipboard.writeText(code).then(()=>alert("Google Apps Script கோடு காப்பி செய்யப்பட்டது!\n\nUSERS மற்றும் LEADERS Sheets தானாக உருவாகும்.")).catch(()=>alert("காப்பி செய்வதில் தோல்வி ஏற்பட்டது."))}
+window.onload=()=>{initConfig();fetchFromCloud()}
+</script>
+</body>
+</html>
