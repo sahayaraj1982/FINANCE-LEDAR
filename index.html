@@ -120,7 +120,7 @@ function saveDataLocally(){ensureLeaderMembership();localStorage.setItem("financ
 async function saveToCloudOnly(){
  saveDataLocally();
  const led=document.getElementById("ledLight");
- if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="https://script.google.com/macros/s/AKfycbzi3QQjosUBrHxMpR-XdGTbi7DvON7LTkND9jQ4YSGtgO3gKiJFA_w0Xw-iNaPCXZjL/exec"){
+ if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="https://script.google.com/macros/s/AKfycbzPyvtb81QovswhMuqyAUFmARn8Tjcm_19jhqcfkcmfKLRh49vzbEaOXyJKEH3AeL-N/exec"){
    led.classList.remove("connected");
    return;
  }
