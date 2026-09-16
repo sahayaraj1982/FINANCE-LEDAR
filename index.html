@@ -82,9 +82,10 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 </div>
 
 <script>
+const DEFAULT_CLOUD_URL="https://script.google.com/macros/s/AKfycbzPyvtb81QovswhMuqyAUFmARn8TjcmfKLRh49vzbEaOXyJKEH3AeL-N/exec";
 let CLOUD_URL="";
 let users=JSON.parse(localStorage.getItem("financeUsersData"))||[];
-let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,cloudUrl:""};
+let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,cloudUrl:DEFAULT_CLOUD_URL};
 let currentUser=null,editIndex=null,currentLeaderIndex=null,returnToLeaderDetail=false;
 let leaders=JSON.parse(localStorage.getItem("financeLeadersData"))||[];
 
@@ -103,7 +104,10 @@ function leaderAllCredit(lid){return leaderUsers(lid).reduce((sum,u)=>sum+(u.tra
 function showLoading(s){document.getElementById("loading").style.display=s?"block":"none"}
 function localDate(){let d=new Date(),o=d.getTimezoneOffset();return new Date(d.getTime()-o*60000).toISOString().split("T")[0]}
 function initConfig(){
+ if(!String(appConfig.cloudUrl||"").trim()) appConfig.cloudUrl=DEFAULT_CLOUD_URL;
  CLOUD_URL=String(appConfig.cloudUrl||"").trim();
+ if(CLOUD_URL) appConfig.showCloud=true;
+ localStorage.setItem("financeConfig",JSON.stringify(appConfig));
  document.getElementById("cloudUrlInput").value=CLOUD_URL;
  document.getElementById("setAppTitle").value=appConfig.title;document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setThemeColor").value=appConfig.color;
  ["Dash","Search","DateFilter","RedHighlight","BlueHighlight","Cloud"].forEach(x=>{let id="switch"+x,key=x[0].toLowerCase()+x.slice(1);document.getElementById(id).checked=appConfig[key]!==undefined?appConfig[key]:((x==="Cloud")?true:(x==="RedHighlight"||x==="BlueHighlight")?false:true)});
@@ -124,7 +128,7 @@ function saveDataLocally(){ensureLeaderMembership();localStorage.setItem("financ
 async function saveToCloudOnly(){
  saveDataLocally();
  const led=document.getElementById("ledLight");
- if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="https://script.google.com/macros/s/AKfycbyTiDbuO5bNJ_7X_sDROuOm8ohWcLDoSxoZfWO9namwoI2bJ6UQw5LaYqDVK7kovsj0/exec"){
+ if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx"){
   led.classList.remove("connected");
   showLoading(false);
   return false;
@@ -598,7 +602,7 @@ async function testGoogleConnection(){
  else alert("Google Sheet Connection கிடைக்கவில்லை. URL / Deployment / Access-ஐ சரிபார்க்கவும்.");
 }
 
-window.onload=()=>{ensureLeaderMembership();initConfig();fetchFromCloud()}
+window.onload=async()=>{ensureLeaderMembership();initConfig();await fetchFromCloud()}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
