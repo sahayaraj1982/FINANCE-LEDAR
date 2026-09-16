@@ -61,7 +61,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 
 <div id="leaderDetailScreen" class="hidden">
 <div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="backToLeaderManager()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openLeaderEdit(currentLeaderIndex)" style="padding:6px 12px">✏️ Edit</button></div><h2 id="leaderDetailTitle"></h2></div>
-<div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers(true)">☑ All</button><button style="background:#e53935;color:#fff" onclick="removeSelectedLeaderUsers()">🗑️ Clear</button><button style="background:#e53935;color:#fff" onclick="generateLeaderPDF()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📤 Share</button></div>
+<div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers()">☑ All</button><button style="background:#e53935;color:#fff" onclick="removeSelectedLeaderUsers()">🗑️ Clear</button><button style="background:#e53935;color:#fff" onclick="generateLeaderPDF()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📤 Share</button></div>
 <div class="leader-summary"><div class="leader-summary-grid"><div class="box"><small>Selected Users</small><strong id="leaderSelectedCount">0</strong></div><div class="box"><small>Total Balance</small><strong id="leaderTotalBalance">₹ 0</strong></div><div class="box"><small>10% Collection</small><strong id="leaderTenTotal">₹ 0</strong></div></div></div>
 <div id="leaderList"></div>
 </div>
@@ -72,7 +72,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div id="userFormPopup" class="popup-overlay" onclick="closeUserForm()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="userFormTitle" style="color:var(--theme-color);margin-top:0">Add User</h3><input type="text" id="uName" placeholder="User Name"><input type="text" id="uMobile" placeholder="Mobile"><label style="display:block;text-align:left;color:#aaa;font-size:13px;margin-top:5px">Leader</label><select id="uLeader"></select><button class="gold" style="width:100%;padding:12px;margin-top:10px" onclick="saveUserForm()">Save User</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserForm()">Cancel</button></div></div>
 
 <div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">⚙️ App Settings</h3>
-<label style="display:block;text-align:left;margin-top:5px">Google Apps Script URL:</label><input type="text" id="cloudUrlInput" placeholder="https://script.google.com/macros/s/.../exec" oninput="applySettings()" style="font-size:13px"><div style="display:flex;gap:8px;margin:8px 0 14px"><button class="gold" style="flex:1;padding:10px" onclick="copyGoogleScript()">📋 Copy Google Script</button><button style="background:#555;color:#fff;flex:1;padding:10px;border:0;border-radius:10px" onclick="testGoogleConnection()">🔗 Test Connection</button></div><label>Banner Name:</label><input type="text" id="setAppTitle" oninput="applySettings()"><label>App Width: <span id="widthVal">500</span>px</label><input type="range" id="setAppWidth" min="360" max="800" step="10" oninput="applySettings()"><label>App Height: <span id="heightVal">100</span>%</label><input type="range" id="setAppHeight" min="50" max="100" step="5" oninput="applySettings()"><label>Font Size: <span id="fontSizeVal">16</span>px</label><input type="range" id="setAppFontSize" min="12" max="24" step="1" oninput="applySettings()"><label>Font Weight:</label><select id="setAppFontWeight" onchange="applySettings()"><option value="normal">Normal</option><option value="bold">Bold</option></select><label>Theme Color:</label><div class="color-presets">
+<label>Banner Name:</label><input type="text" id="setAppTitle" oninput="applySettings()"><label>App Width: <span id="widthVal">500</span>px</label><input type="range" id="setAppWidth" min="360" max="800" step="10" oninput="applySettings()"><label>App Height: <span id="heightVal">100</span>%</label><input type="range" id="setAppHeight" min="50" max="100" step="5" oninput="applySettings()"><label>Font Size: <span id="fontSizeVal">16</span>px</label><input type="range" id="setAppFontSize" min="12" max="24" step="1" oninput="applySettings()"><label>Font Weight:</label><select id="setAppFontWeight" onchange="applySettings()"><option value="normal">Normal</option><option value="bold">Bold</option></select><label>Theme Color:</label><div class="color-presets">
 <div class="color-dot" style="background:#ffd700" onclick="setPresetColor('#ffd700')"></div><div class="color-dot" style="background:#ffb300" onclick="setPresetColor('#ffb300')"></div><div class="color-dot" style="background:#ff3d00" onclick="setPresetColor('#ff3d00')"></div><div class="color-dot" style="background:#e53935" onclick="setPresetColor('#e53935')"></div><div class="color-dot" style="background:#8e24aa" onclick="setPresetColor('#8e24aa')"></div><div class="color-dot" style="background:#1e88e5" onclick="setPresetColor('#1e88e5')"></div><div class="color-dot" style="background:#00e5ff" onclick="setPresetColor('#00e5ff')"></div><div class="color-dot" style="background:#00a86b" onclick="setPresetColor('#00a86b')"></div><div class="color-dot" style="background:#4caf50" onclick="setPresetColor('#4caf50')"></div><div class="color-dot" style="background:#7cb342" onclick="setPresetColor('#7cb342')"></div><div class="color-dot" style="background:#d4af37" onclick="setPresetColor('#d4af37')"></div><div class="color-dot" style="background:#78909c" onclick="setPresetColor('#78909c')"></div><input type="color" id="setThemeColor" style="width:100%;height:100%;border:none;background:transparent" oninput="applySettings()"></div>
 <hr style="border-color:#333"><div class="setting-row"><span>Show Dashboard Boxes</span><label class="switch"><input type="checkbox" id="switchDash" checked onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Show Search Bar</span><label class="switch"><input type="checkbox" id="switchSearch" checked onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Show Date Filter & Credit/Debit Boxes</span><label class="switch"><input type="checkbox" id="switchDateFilter" checked onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Red User Highlight & Sorting</span><label class="switch"><input type="checkbox" id="switchRedHighlight" onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Blue User Highlight & Sorting</span><label class="switch"><input type="checkbox" id="switchBlueHighlight" onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Google Sheet Sync</span><label class="switch"><input type="checkbox" id="switchCloud" checked onchange="applySettings()"><span class="slider"></span></label></div><hr style="border-color:#333"><button style="background:#e53935;color:#fff;width:100%;padding:12px;font-weight:bold;border:0;border-radius:10px" onclick="allDeleteWithExport()">⚠️ All Delete</button><button class="gold" style="width:100%;margin-top:12px;padding:12px" onclick="closeSettingsPopup()">Done</button></div></div>
 
@@ -82,10 +82,9 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 </div>
 
 <script>
-const DEFAULT_CLOUD_URL="https://script.google.com/macros/s/AKfycbzPyvtb81QovswhMuqyAUFmARn8TjcmfKLRh49vzbEaOXyJKEH3AeL-N/exec";
-let CLOUD_URL="";
+const CLOUD_URL="https://script.google.com/macros/s/AKfycbyTiDbuO5bNJ_7X_sDROuOm8ohWcLDoSxoZfWO9namwoI2bJ6UQw5LaYqDVK7kovsj0/exec";
 let users=JSON.parse(localStorage.getItem("financeUsersData"))||[];
-let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,cloudUrl:DEFAULT_CLOUD_URL};
+let appConfig=JSON.parse(localStorage.getItem("financeConfig"))||{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true};
 let currentUser=null,editIndex=null,currentLeaderIndex=null,returnToLeaderDetail=false;
 let leaders=JSON.parse(localStorage.getItem("financeLeadersData"))||[];
 
@@ -104,19 +103,12 @@ function leaderAllCredit(lid){return leaderUsers(lid).reduce((sum,u)=>sum+(u.tra
 function showLoading(s){document.getElementById("loading").style.display=s?"block":"none"}
 function localDate(){let d=new Date(),o=d.getTimezoneOffset();return new Date(d.getTime()-o*60000).toISOString().split("T")[0]}
 function initConfig(){
- if(!String(appConfig.cloudUrl||"").trim()) appConfig.cloudUrl=DEFAULT_CLOUD_URL;
- CLOUD_URL=String(appConfig.cloudUrl||"").trim();
- if(CLOUD_URL) appConfig.showCloud=true;
- localStorage.setItem("financeConfig",JSON.stringify(appConfig));
- document.getElementById("cloudUrlInput").value=CLOUD_URL;
  document.getElementById("setAppTitle").value=appConfig.title;document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setThemeColor").value=appConfig.color;
  ["Dash","Search","DateFilter","RedHighlight","BlueHighlight","Cloud"].forEach(x=>{let id="switch"+x,key=x[0].toLowerCase()+x.slice(1);document.getElementById(id).checked=appConfig[key]!==undefined?appConfig[key]:((x==="Cloud")?true:(x==="RedHighlight"||x==="BlueHighlight")?false:true)});
  if(!document.getElementById("filterStartDate").value)document.getElementById("filterStartDate").value=localDate();if(!document.getElementById("filterEndDate").value)document.getElementById("filterEndDate").value=localDate();applyConfigUI()
 }
 function setPresetColor(c){document.getElementById("setThemeColor").value=c;applySettings()}
 function applySettings(){
- CLOUD_URL=(document.getElementById("cloudUrlInput").value||"").trim();
- appConfig.cloudUrl=CLOUD_URL;
  appConfig.title=document.getElementById("setAppTitle").value||"Finance Manager Pro";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard()
 }
 function applyConfigUI(){
@@ -129,62 +121,43 @@ async function saveToCloudOnly(){
  saveDataLocally();
  const led=document.getElementById("ledLight");
  if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx"){
-  led.classList.remove("connected");
-  showLoading(false);
-  return false;
+   led.classList.remove("connected");
+   return;
  }
  showLoading(true);
  try{
-  await fetch(CLOUD_URL,{
-   method:"POST",
-   mode:"no-cors",
-   headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-   body:"data="+encodeURIComponent(JSON.stringify({users,leaders}))
-  });
-  // Apps Script-க்கு request அனுப்பப்பட்டால் Green
-  led.classList.add("connected");
-  return true;
+   await fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"data="+encodeURIComponent(JSON.stringify({users,leaders}))});
+   led.classList.add("connected");
  }catch(e){
-  led.classList.remove("connected");
-  return false;
- }finally{
-  showLoading(false);
+   led.classList.remove("connected");
  }
+ showLoading(false);
 }
 async function fetchFromCloud(){
  const led=document.getElementById("ledLight");
- CLOUD_URL=String(appConfig.cloudUrl||"").trim();
  if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx"){
-  led.classList.remove("connected");
-  ensureLeaderMembership();
-  renderUsers();
-  return false;
+   led.classList.remove("connected");
+   ensureLeaderMembership();
+   renderUsers();
+   return;
  }
  showLoading(true);
  try{
-  let r=await fetch(CLOUD_URL+"?t="+Date.now(),{cache:"no-store"});
-  if(!r.ok)throw new Error("Google Sheet connection failed");
-  let d=await r.json();
-  if(Array.isArray(d)){
-   users=d;
-  }else if(d&&Array.isArray(d.users)){
-   users=d.users;
-   if(Array.isArray(d.leaders))leaders=d.leaders;
-  }else{
-   throw new Error("Invalid Google Sheet response");
-  }
-  ensureLeaderMembership();
-  renderUsers();
-  led.classList.add("connected");
-  return true;
+   let r=await fetch(CLOUD_URL),d=await r.json();
+   if(Array.isArray(d))users=d;
+   else if(d&&Array.isArray(d.users)){
+     users=d.users;
+     if(Array.isArray(d.leaders))leaders=d.leaders;
+   }
+   ensureLeaderMembership();
+   renderUsers();
+   led.classList.add("connected");
  }catch(e){
-  led.classList.remove("connected");
-  ensureLeaderMembership();
-  renderUsers();
-  return false;
- }finally{
-  showLoading(false);
+   led.classList.remove("connected");
+   ensureLeaderMembership();
+   renderUsers();
  }
+ showLoading(false);
 }
 function formatDate(d){if(!d)return"";let x=new Date(d);if(isNaN(x))return String(d);return `${x.getDate()}-${x.getMonth()+1}-${String(x.getFullYear()).slice(2)}`}
 function getBalance(u){return(u.transactions||[]).reduce((a,t)=>a+Number(t.credit||0)-Number(t.debit||0),0)}
@@ -255,10 +228,12 @@ function renderLeaderDetail(){
  box.appendChild(card)})
  updateLeaderSummary()
 }
-function selectAllLeaderUsers(flag){
+function selectAllLeaderUsers(){
  let l=leaders.find(x=>x.id===currentLeaderIndex);
  if(!l)return;
- selectedLeaderUserIds=new Set(flag?leaderUsers(l.id).map(u=>u.id):[]);
+ let ids=leaderUsers(l.id).map(u=>u.id);
+ let allSelected=ids.length>0&&ids.every(id=>selectedLeaderUserIds.has(id));
+ selectedLeaderUserIds=allSelected?new Set():new Set(ids);
  renderLeaderDetail();
 }
 async function removeSelectedLeaderUsers(){
@@ -285,324 +260,7 @@ async function addPickedUsersToLeader(){let l=leaders.find(x=>x.id===currentLead
 function generateLeaderPDF(){if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();if(!l)return;if(!arr.length)return alert("PDF-க்கு குறைந்தது ஒரு User-ஐ Select செய்யவும்.");let{jsPDF}=window.jspdf,doc=new jsPDF(),w=doc.internal.pageSize.getWidth(),bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0);doc.setFont("helvetica","bold");doc.setFontSize(20);doc.text("FINANCE MANAGER",w/2,15,{align:"center"});doc.setFontSize(18);doc.text(String(l.name||""),14,35);doc.setFontSize(10);doc.text("TOTAL USERS "+arr.length,w-14,28,{align:"right"});doc.text("TOTAL BALANCE Rs. "+bal.toLocaleString(),w-14,35,{align:"right"});doc.text("10% COLLECTION Rs. "+ten.toLocaleString(),w-14,42,{align:"right"});let rows=arr.map(u=>{let d=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0),c=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.credit||0)),0);return[u.name||"",d.toLocaleString(),c.toLocaleString(),getBalance(u).toLocaleString(),(d*.1).toLocaleString()]});doc.autoTable({startY:52,head:[["USER","DEBIT TOTAL","CREDIT TOTAL","BALANCE","10% COLLECTION"]],body:rows,theme:"grid",styles:{fontSize:8.5,cellPadding:3}});doc.save((l.name||"Leader").replace(/[^a-z0-9_-]+/gi,"_")+"_Report.pdf")}
 async function shareLeaderSummary(){let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();if(!l||!arr.length)return alert("முதலில் User-களை Select செய்யவும்.");let bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),msg=`Leader: ${l.name}\nSelected Users: ${arr.length}\nTotal Balance: ₹ ${bal.toLocaleString()}\n10% Total: ₹ ${ten.toLocaleString()}\nGrand Total: ₹ ${(bal+ten).toLocaleString()}\n\n`+arr.map((u,i)=>`${i+1}. ${u.name} - ₹ ${getBalance(u).toLocaleString()}`).join("\n");if(navigator.share){try{await navigator.share({title:l.name+" Report",text:msg})}catch(e){}}else{await navigator.clipboard.writeText(msg);alert("Summary copied.")}}
 
-function getGoogleScriptCode(){
- return `function doGet(e) {
-  try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var userSheet = ss.getSheets()[0];
-    var data = userSheet.getDataRange().getValues();
-    var usersMap = {};
-    var userOrder = [];
-
-    // பழைய 3-column JSON format + புதிய 8-column format இரண்டையும் படிக்கும்
-    var isNewFormat = data.length > 0 && data[0].length >= 8 &&
-      String(data[0][2] || "").toLowerCase() === "date";
-
-    for (var i = 1; i < data.length; i++) {
-      var name = data[i][0] ? String(data[i][0]) : "";
-      if (!name) continue;
-
-      var mobile = data[i][1] ? String(data[i][1]) : "";
-      var key = name + "||" + mobile;
-
-      if (!usersMap[key]) {
-        usersMap[key] = {
-          id: "user_" + i + "_" + new Date().getTime(),
-          name: name,
-          mobile: mobile,
-          leaderId: "",
-          transactions: []
-        };
-        userOrder.push(key);
-      }
-
-      if (!isNewFormat) {
-        // பழைய Script format:
-        // A=Name, B=Mobile, C=Transactions JSON
-        try {
-          var oldTx = data[i][2] ? JSON.parse(data[i][2]) : [];
-          if (Array.isArray(oldTx)) {
-            usersMap[key].transactions = oldTx;
-          }
-        } catch (err) {}
-      } else {
-        // புதிய format:
-        // A Name, B Mobile, C Date, D Description, E Credit,
-        // F Debit, G Leader ID, H Leader Name
-        var date = data[i][2] ? String(data[i][2]) : "";
-        var desc = data[i][3] ? String(data[i][3]) : "";
-        var credit = data[i][4] !== "" && data[i][4] != null ? data[i][4] : "";
-        var debit = data[i][5] !== "" && data[i][5] != null ? data[i][5] : "";
-        var leaderId = data[i][6] ? String(data[i][6]) : "";
-
-        if (leaderId && !usersMap[key].leaderId) {
-          usersMap[key].leaderId = leaderId;
-        }
-
-        if (date || desc || credit !== "" || debit !== "") {
-          usersMap[key].transactions.push({
-            date: date,
-            desc: desc,
-            credit: credit,
-            debit: debit
-          });
-        }
-      }
-    }
-
-    var users = userOrder.map(function(k) {
-      return usersMap[k];
-    });
-
-    var leaderSheet = ss.getSheetByName("Leaders");
-    var leaders = [];
-
-    if (leaderSheet && leaderSheet.getLastRow() >= 2) {
-      var ld = leaderSheet.getRange(2, 1, leaderSheet.getLastRow() - 1, 2).getValues();
-      var seen = {};
-
-      for (var j = 0; j < ld.length; j++) {
-        var id = ld[j][0] ? String(ld[j][0]) : "";
-        var lname = ld[j][1] ? String(ld[j][1]) : "";
-        if (!id || !lname) continue;
-
-        var nk = lname.trim().toLowerCase();
-        if (seen[id] || seen[nk]) continue;
-
-        seen[id] = true;
-        seen[nk] = true;
-        leaders.push({id:id, name:lname.trim()});
-      }
-    }
-
-    return ContentService
-      .createTextOutput(JSON.stringify({
-        status: "SUCCESS",
-        users: users,
-        leaders: leaders
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (error) {
-    return ContentService
-      .createTextOutput(JSON.stringify({
-        status: "ERROR",
-        message: error.toString()
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function doPost(e) {
-  var lock = LockService.getScriptLock();
-
-  try {
-    lock.waitLock(15000);
-
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var userSheet = ss.getSheets()[0];
-
-    if (!e || !e.parameter || !e.parameter.data) {
-      throw new Error("No data received");
-    }
-
-    var received = JSON.parse(e.parameter.data);
-    var users = Array.isArray(received)
-      ? received
-      : (Array.isArray(received.users) ? received.users : []);
-
-    var leaders = Array.isArray(received)
-      ? readExistingLeaders_(ss)
-      : (Array.isArray(received.leaders) ? received.leaders : []);
-
-    userSheet.clearContents();
-
-    var headers = [
-      "User Name",
-      "Mobile Number",
-      "Date",
-      "Description",
-      "Credit",
-      "Debit",
-      "Leader ID",
-      "Leader Name"
-    ];
-
-    userSheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-
-    var leaderNameMap = {};
-    var uniqueLeaders = [];
-    var seenLeaderIds = {};
-    var seenLeaderNames = {};
-
-    for (var l = 0; l < leaders.length; l++) {
-      var leader = leaders[l] || {};
-      var lid = String(leader.id || "").trim();
-      var lname = String(leader.name || "").trim();
-
-      if (!lid || !lname) continue;
-      if (lname.toLowerCase() === "company") continue;
-
-      var nameKey = lname.toLowerCase();
-
-      if (seenLeaderIds[lid] || seenLeaderNames[nameKey]) continue;
-
-      seenLeaderIds[lid] = true;
-      seenLeaderNames[nameKey] = true;
-      leaderNameMap[lid] = lname;
-
-      uniqueLeaders.push([lid, lname]);
-    }
-
-    var rows = [];
-
-    for (var i = 0; i < users.length; i++) {
-      var u = users[i] || {};
-      var name = String(u.name || "");
-      var mobile = String(u.mobile || "");
-      var leaderId = String(u.leaderId || "");
-      var leaderName = leaderNameMap[leaderId] || "";
-      var txs = Array.isArray(u.transactions) ? u.transactions : [];
-
-      if (txs.length === 0) {
-        rows.push([
-          name,
-          mobile,
-          "",
-          "",
-          "",
-          "",
-          leaderId,
-          leaderName
-        ]);
-      } else {
-        for (var t = 0; t < txs.length; t++) {
-          var tx = txs[t] || {};
-
-          rows.push([
-            name,
-            mobile,
-            tx.date == null ? "" : tx.date,
-            tx.desc == null ? "" : tx.desc,
-            tx.credit == null ? "" : tx.credit,
-            tx.debit == null ? "" : tx.debit,
-            leaderId,
-            leaderName
-          ]);
-        }
-      }
-    }
-
-    if (rows.length > 0) {
-      userSheet.getRange(2, 1, rows.length, 8).setValues(rows);
-    }
-
-    var leaderSheet = ss.getSheetByName("Leaders");
-    if (!leaderSheet) {
-      leaderSheet = ss.insertSheet("Leaders");
-    }
-
-    leaderSheet.clearContents();
-    leaderSheet.getRange(1, 1, 1, 2)
-      .setValues([["Leader ID", "Leader Name"]]);
-
-    if (uniqueLeaders.length > 0) {
-      leaderSheet.getRange(2, 1, uniqueLeaders.length, 2)
-        .setValues(uniqueLeaders);
-    }
-
-    SpreadsheetApp.flush();
-
-    return ContentService
-      .createTextOutput(JSON.stringify({
-        status: "SUCCESS",
-        users: users.length,
-        leaders: uniqueLeaders.length
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (error) {
-    return ContentService
-      .createTextOutput(JSON.stringify({
-        status: "ERROR",
-        message: error.toString()
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } finally {
-    try {
-      lock.releaseLock();
-    } catch (err) {}
-  }
-}
-
-function readExistingLeaders_(ss) {
-  var sheet = ss.getSheetByName("Leaders");
-  var result = [];
-
-  if (!sheet || sheet.getLastRow() < 2) return result;
-
-  var data = sheet.getRange(
-    2, 1, sheet.getLastRow() - 1, 2
-  ).getValues();
-
-  var ids = {};
-  var names = {};
-
-  for (var i = 0; i < data.length; i++) {
-    var id = String(data[i][0] || "").trim();
-    var name = String(data[i][1] || "").trim();
-
-    if (!id || !name) continue;
-
-    var key = name.toLowerCase();
-
-    if (ids[id] || names[key]) continue;
-
-    ids[id] = true;
-    names[key] = true;
-
-    result.push({
-      id: id,
-      name: name
-    });
-  }
-
-  return result;
-}`;
-}
-
-async function copyGoogleScript(){
- const code=getGoogleScriptCode();
- try{
-  await navigator.clipboard.writeText(code);
-  alert("Google Script Copy செய்யப்பட்டது. Apps Script-ல் Paste செய்யலாம்.");
- }catch(e){
-  const ta=document.createElement("textarea");
-  ta.value=code;
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand("copy");
-  ta.remove();
-  alert("Google Script Copy செய்யப்பட்டது.");
- }
-}
-
-async function testGoogleConnection(){
- const url=(document.getElementById("cloudUrlInput").value||"").trim();
- if(!url)return alert("முதலில் Google Apps Script URL-ஐ paste செய்யவும்.");
- CLOUD_URL=url;
- appConfig.cloudUrl=url;
- appConfig.showCloud=true;
- document.getElementById("switchCloud").checked=true;
- localStorage.setItem("financeConfig",JSON.stringify(appConfig));
-
- const ok=await fetchFromCloud();
- if(ok) alert("Google Sheet Connection OK ✓");
- else alert("Google Sheet Connection கிடைக்கவில்லை. URL / Deployment / Access-ஐ சரிபார்க்கவும்.");
-}
-
-window.onload=async()=>{ensureLeaderMembership();initConfig();await fetchFromCloud()}
+window.onload=()=>{ensureLeaderMembership();initConfig();fetchFromCloud()}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
